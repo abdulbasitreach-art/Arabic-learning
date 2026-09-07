@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Learning Workbook: Lesson 1</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        accent: {
+                            500: '#f59e0b', // Gold/Amber
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Scrollbar */
+        body { background-color: #f8fafc; }
+        .arabic-text { font-family: 'Cairo', sans-serif; direction: rtl; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-item.active {
+            background-color: #0ea5e9;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Chat bubbles */
+        .chat-bubble-user {
+            background: #0ea5e9;
+            color: white;
+            border-bottom-right-radius: 0;
+        }
+        .chat-bubble-other {
+            background: #f1f5f9;
+            color: #334155;
+            border-bottom-left-radius: 0;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased h-screen flex overflow-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- Sidebar Navigation -->
+    <aside class="w-72 bg-brand-950 text-slate-300 flex flex-col shadow-2xl z-20 hidden md:flex h-full">
+        <div class="p-6 border-b border-brand-900/50">
+            <div class="flex items-center gap-3 text-white mb-2">
+                <i class="fa-solid fa-earth-americas text-2xl text-accent-500"></i>
+                <h1 class="text-xl font-bold leading-tight">Arabic For<br>Humanitarians</h1>
+            </div>
+            <p class="text-xs text-brand-500 font-medium tracking-wider uppercase mt-3">Lesson 1 Workbook</p>
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1" id="sidebar-nav">
+            <button onclick="switchTab('intro')" class="nav-item active w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-bullseye w-5 text-center"></i> Objectives
+            </button>
+            <button onclick="switchTab('alphabets')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-font w-5 text-center"></i> Alphabets (Ø§Ù„Ø­Ø±ÙˆÙ)
+            </button>
+            <button onclick="switchTab('module1')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-handshake w-5 text-center"></i> 1. Greetings & Status
+            </button>
+            <button onclick="switchTab('module2')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-id-card w-5 text-center"></i> 2. Personal Identity
+            </button>
+            <button onclick="switchTab('module3')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-hands-holding-child w-5 text-center"></i> 3. Humanitarian Action
+            </button>
+            <button onclick="switchTab('conversation')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-comments w-5 text-center"></i> Applied Conversation
+            </button>
+            <button onclick="switchTab('vocabulary')" class="nav-item w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all hover:bg-brand-900 hover:text-white text-left">
+                <i class="fa-solid fa-book-open w-5 text-center"></i> Vocab Reference
+            </button>
+        </nav>
+
+        <div class="p-6 border-t border-brand-900/50 text-xs text-center text-slate-500">
+            Designed for Field Workers
+        </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <div class="md:hidden fixed top-0 w-full bg-brand-950 text-white z-30 px-4 py-3 flex justify-between items-center shadow-md">
+        <div class="flex items-center gap-2 font-bold">
+            <i class="fa-solid fa-earth-americas text-accent-500"></i> Arabic Lesson 1
+        </div>
+        <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-white text-xl">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-brand-950 z-20 pt-16 px-4 pb-4 overflow-y-auto">
+        <!-- Exact same buttons as sidebar but styled for mobile -->
+        <nav class="space-y-2 mt-4" id="mobile-nav">
+            <!-- Populated via JS for DRYness -->
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto relative bg-slate-50 pt-16 md:pt-0">
+        
+        <!-- Header Image / Pattern Background -->
+        <div class="absolute top-0 left-0 w-full h-64 bg-brand-900 overflow-hidden z-0">
+            <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-50 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-24">
+            
+            <!-- TAB: INTRO / OBJECTIVES -->
+            <section id="intro" class="tab-content active">
+                <div class="mb-10 text-center md:text-left mt-8 md:mt-0">
+                    <span class="inline-block py-1 px-3 rounded-full bg-accent-500/20 text-accent-500 font-bold text-xs uppercase tracking-widest mb-3 border border-accent-500/30">Introduction</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4 shadow-sm">Learning Objectives</h2>
+                    <p class="text-brand-100 text-lg max-w-2xl">By the end of this module, you will master essential competencies for humanitarian fieldwork in Arabic-speaking regions.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+                    <div class="glass-card rounded-2xl p-6 transition hover:shadow-xl hover:-translate-y-1 duration-300 bg-white">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Conversational Fluency</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Initiate and sustain basic greetings and status exchanges confidently with locals and colleagues.</p>
+                    </div>
+                    
+                    <div class="glass-card rounded-2xl p-6 transition hover:shadow-xl hover:-translate-y-1 duration-300 bg-white">
+                        <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-id-badge"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Self-Presentation</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Confidently introduce your identity, origin, and professional humanitarian background.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 transition hover:shadow-xl hover:-translate-y-1 duration-300 bg-white">
+                        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Domain-Specific Vocabulary</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Utilize essential humanitarian, aid, and field-work terminology accurately in context.</p>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6 transition hover:shadow-xl hover:-translate-y-1 duration-300 bg-white">
+                        <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4">
+                            <i class="fa-solid fa-pen-nib"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Sentence Construction</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">Apply foundational Arabic grammar patterns to formulate your own descriptive sentences on the field.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 flex justify-center md:justify-end">
+                    <button onclick="switchTab('alphabets')" class="bg-brand-500 hover:bg-brand-600 text-white font-semibold py-3 px-8 rounded-xl shadow-lg shadow-brand-500/30 transition-all flex items-center gap-2">
+                        Start Alphabets <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: ALPHABETS -->
+            <section id="alphabets" class="tab-content">
+                <div class="mb-10 text-center md:text-left mt-8 md:mt-0">
+                    <span class="inline-block py-1 px-3 rounded-full bg-accent-500/20 text-accent-500 font-bold text-xs uppercase tracking-widest mb-3 border border-accent-500/30">Foundation</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4 shadow-sm">Arabic Alphabets (Ø§Ù„Ø­Ø±ÙˆÙ)</h2>
+                    <p class="text-brand-100 text-lg max-w-2xl">Master the building blocks of Arabic. Toggle between Learning Mode (with pronunciation) and Test Mode (Arabic only). Then test your memory!</p>
+                </div>
+
+                <div class="relative z-10">
+                    <!-- Controls -->
+                    <div class="glass-card rounded-2xl p-4 mb-8 flex flex-col sm:flex-row justify-between items-center gap-4 bg-white/90">
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold text-slate-700">Display:</span>
+                            <div class="bg-slate-100 p-1 rounded-xl flex border border-slate-200">
+                                <button id="btn-mode-learn" onclick="setAlphaMode('learn')" class="px-4 py-2 rounded-lg text-sm font-bold bg-brand-500 text-white shadow-sm transition-all">Learn (Roman)</button>
+                                <button id="btn-mode-test" onclick="setAlphaMode('test')" class="px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 transition-all">Test (Arabic Only)</button>
+                            </div>
+                        </div>
+                        <button onclick="startAlphaQuiz()" class="bg-accent-500 hover:bg-accent-600 text-white font-bold py-2 px-6 rounded-xl shadow-md transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad"></i> Play Alphabet Quiz
+                        </button>
+                    </div>
+
+                    <!-- Alphabet Grid -->
+                    <div id="alphabet-grid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-4 mb-12" dir="rtl">
+                        <!-- Rendered via JS -->
+                    </div>
+
+                    <!-- Alphabet Quiz Section -->
+                    <div id="alpha-quiz-container" class="hidden bg-slate-900 rounded-3xl p-8 shadow-2xl border-2 border-brand-500 relative overflow-hidden mt-8 mb-12">
+                        <div class="absolute top-0 right-0 p-4">
+                            <button onclick="closeAlphaQuiz()" class="text-slate-400 hover:text-white transition w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="text-center mb-8">
+                            <span class="text-brand-400 font-bold uppercase tracking-widest text-sm">Interactive Challenge</span>
+                            <h3 class="text-3xl font-bold text-white mt-2">Which letter is this?</h3>
+                        </div>
+                        <div class="bg-slate-800 rounded-2xl p-6 text-center max-w-md mx-auto mb-8 shadow-inner border border-slate-700">
+                            <p class="text-slate-400 mb-2 font-medium">Find the letter matching the sound:</p>
+                            <p id="quiz-target-name" class="text-5xl font-extrabold text-accent-500 font-sans tracking-wider capitalize">Jeem</p>
+                            <button onclick="playAudio(currentQuizLetter?.name || '')" class="mt-4 text-brand-400 hover:text-brand-300 font-medium transition flex items-center justify-center gap-2 mx-auto bg-slate-700/50 px-4 py-2 rounded-lg border border-slate-600">
+                                <i class="fa-solid fa-volume-high"></i> Listen to Sound
+                            </button>
+                        </div>
+                        
+                        <div id="alpha-quiz-options" class="grid grid-cols-2 gap-4 max-w-md mx-auto" dir="rtl">
+                            <!-- Options rendered via JS -->
+                        </div>
+                        
+                        <div id="alpha-quiz-feedback" class="mt-6 text-center text-lg font-bold min-h-[30px] rounded-lg py-2 max-w-md mx-auto"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('module1')" class="text-brand-700 font-semibold hover:text-brand-500 transition-all flex items-center gap-2">
+                        Next: Greetings & Status <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: MODULE 1 -->
+            <section id="module1" class="tab-content">
+                <div class="mb-8 mt-8 md:mt-0">
+                    <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Module 1</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Greetings & Status</h2>
+                </div>
+
+                <!-- Vocabulary Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-4xl text-brand-700 font-bold mb-2">Ø§Ù„Ø³Ù„Ø§Ù… Ø¹Ù„ÙŠÙƒÙ…</p>
+                            <button onclick="playAudio('Assalamu Alaikum')" class="text-slate-400 hover:text-brand-500 transition text-sm"><i class="fa-solid fa-volume-high mr-1"></i> Listen</button>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">Assalamu Alaikum</h3>
+                            <p class="text-brand-500 font-medium mb-3">Peace be upon you</p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-sm text-slate-600 border border-slate-100 font-mono">
+                                <span class="font-bold text-slate-800">Breakdown:</span> Al-Salam (Peace) + 'Ala (Upon) + -kum (You)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-4xl text-brand-700 font-bold mb-2">ÙƒÙŠÙ Ø­Ø§Ù„ÙƒØŸ</p>
+                            <button onclick="playAudio('Kaifa haluk?')" class="text-slate-400 hover:text-brand-500 transition text-sm"><i class="fa-solid fa-volume-high mr-1"></i> Listen</button>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">Kaifa haluk?</h3>
+                            <p class="text-brand-500 font-medium mb-3">How are you?</p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-sm text-slate-600 border border-slate-100 font-mono">
+                                <span class="font-bold text-slate-800">Breakdown:</span> Kaifa (How) + Hal (Condition) + -ka (Your)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-4xl text-brand-700 font-bold mb-2">Ø£Ù†Ø§ Ø¨Ø®ÙŠØ±ØŒ Ø§Ù„Ø­Ù…Ø¯ Ù„Ù„Ù‡</p>
+                            <button onclick="playAudio('Ana bikhair, Alhamdulillah')" class="text-slate-400 hover:text-brand-500 transition text-sm"><i class="fa-solid fa-volume-high mr-1"></i> Listen</button>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">Ana bikhair, Alhamdulillah</h3>
+                            <p class="text-brand-500 font-medium mb-3">I am fine, praise be to Allah</p>
+                            <div class="bg-slate-50 p-3 rounded-lg text-sm text-slate-600 border border-slate-100 font-mono">
+                                <span class="font-bold text-slate-800">Breakdown:</span> Ana (I) + Bi-khair (In good) + Praise to Allah
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 1 -->
+                <div class="mt-12 bg-white rounded-2xl p-6 md:p-8 shadow-md border-t-4 border-t-accent-500">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-accent-100 text-accent-600 rounded-full flex items-center justify-center font-bold"><i class="fa-solid fa-pen"></i></div>
+                        <h3 class="text-2xl font-bold text-slate-800">Exercise 1: Fill in the Blanks</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-medium text-slate-700">1. <input type="text" id="ex1-q1" class="border-b-2 border-slate-300 focus:border-brand-500 outline-none px-2 py-1 w-32 text-center text-brand-700 font-bold bg-slate-50 rounded-t" placeholder="type here..."> Alaikum <span class="text-slate-400 text-sm ml-2">(Peace be upon you)</span></label>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-medium text-slate-700">2. Kaifa <input type="text" id="ex1-q2" class="border-b-2 border-slate-300 focus:border-brand-500 outline-none px-2 py-1 w-32 text-center text-brand-700 font-bold bg-slate-50 rounded-t" placeholder="type here...">? <span class="text-slate-400 text-sm ml-2">(How are you?)</span></label>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-medium text-slate-700">3. Ana <input type="text" id="ex1-q3" class="border-b-2 border-slate-300 focus:border-brand-500 outline-none px-2 py-1 w-32 text-center text-brand-700 font-bold bg-slate-50 rounded-t" placeholder="type here...">, Alhamdulillah. <span class="text-slate-400 text-sm ml-2">(I am fine, praise be to Allah.)</span></label>
+                        </div>
+                        
+                        <div class="pt-4 flex items-center gap-4">
+                            <button onclick="checkEx1()" class="bg-slate-800 hover:bg-slate-700 text-white font-medium py-2 px-6 rounded-lg transition-colors">Check Answers</button>
+                            <span id="ex1-feedback" class="font-bold"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('module2')" class="text-brand-700 font-semibold hover:text-brand-500 transition-all flex items-center gap-2">
+                        Next: Personal Identity <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: MODULE 2 -->
+            <section id="module2" class="tab-content">
+                <div class="mb-8 mt-8 md:mt-0">
+                    <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Module 2</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Personal Identity</h2>
+                </div>
+
+                <!-- Vocabulary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                        <p class="arabic-text text-3xl text-brand-700 font-bold mb-1">Ù…Ø§ Ø§Ø³Ù…ÙƒØŸ</p>
+                        <h3 class="text-lg font-bold text-slate-800">Ma ismuk?</h3>
+                        <p class="text-brand-500 text-sm font-medium mb-3">What is your name?</p>
+                        <p class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded">Ma (What) + Ism (Name) + -uk (Your)</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                        <p class="arabic-text text-3xl text-brand-700 font-bold mb-1">Ø§Ø³Ù…ÙŠ ...</p>
+                        <h3 class="text-lg font-bold text-slate-800">Ismi ...</h3>
+                        <p class="text-brand-500 text-sm font-medium mb-3">My name is ...</p>
+                        <p class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded">Ism (Name) + -i (My)</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                        <p class="arabic-text text-3xl text-brand-700 font-bold mb-1">Ù…Ù† Ø£ÙŠÙ† Ø£Ù†ØªØŸ</p>
+                        <h3 class="text-lg font-bold text-slate-800">Min aina anta?</h3>
+                        <p class="text-brand-500 text-sm font-medium mb-3">Where are you from?</p>
+                        <p class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded">Min (From) + Aina (Where) + Anta (You)</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                        <p class="arabic-text text-3xl text-brand-700 font-bold mb-1">Ø£Ù†Ø§ Ù…Ù† ...</p>
+                        <h3 class="text-lg font-bold text-slate-800">Ana min ...</h3>
+                        <p class="text-brand-500 text-sm font-medium mb-3">I am from ...</p>
+                        <p class="text-xs text-slate-500 font-mono bg-slate-50 p-2 rounded">Ana (I) + Min (From)</p>
+                    </div>
+                </div>
+
+                <!-- Exercise 2 -->
+                <div class="mt-8 bg-white rounded-2xl p-6 md:p-8 shadow-md border-t-4 border-t-accent-500">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-accent-100 text-accent-600 rounded-full flex items-center justify-center font-bold"><i class="fa-solid fa-wrench"></i></div>
+                        <h3 class="text-2xl font-bold text-slate-800">Exercise 2: Build Your Intro</h3>
+                        <p class="text-sm text-slate-500 ml-auto hidden md:block">Interactive Generator</p>
+                    </div>
+                    
+                    <p class="text-slate-600 mb-6">Type your details below to generate your Arabic transliterated introduction script for the field.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Your Name</label>
+                                <input type="text" id="ex2-name" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="e.g. Sarah">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Your Home Country</label>
+                                <input type="text" id="ex2-country" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="e.g. Canada">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Your Current City/Camp</label>
+                                <input type="text" id="ex2-city" class="w-full border border-slate-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" placeholder="e.g. Amman">
+                            </div>
+                            <button onclick="generateIntro()" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-2">Generate Script</button>
+                        </div>
+                        
+                        <div class="bg-slate-900 rounded-xl p-6 text-white shadow-inner flex flex-col justify-center min-h-[200px]">
+                            <h4 class="text-brand-300 font-bold text-xs uppercase tracking-wider mb-4 border-b border-slate-700 pb-2">Your Field Script</h4>
+                            <div id="ex2-result" class="space-y-3 font-mono text-lg text-slate-300">
+                                <p class="opacity-50">Ismi <span class="text-white border-b border-dashed border-slate-500 px-2">[Name]</span>.</p>
+                                <p class="opacity-50">Ana min <span class="text-white border-b border-dashed border-slate-500 px-2">[Country]</span>.</p>
+                                <p class="opacity-50">A'ishu fi <span class="text-white border-b border-dashed border-slate-500 px-2">[City]</span>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('module3')" class="text-brand-700 font-semibold hover:text-brand-500 transition-all flex items-center gap-2">
+                        Next: Humanitarian Action <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: MODULE 3 -->
+            <section id="module3" class="tab-content">
+                <div class="mb-8 mt-8 md:mt-0">
+                    <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Module 3</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Humanitarian Action</h2>
+                </div>
+
+                <!-- Vocabulary Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center hover:border-brand-200 transition">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-3xl text-brand-700 font-bold mb-2">Ø£Ø¹Ù…Ù„ ÙÙŠ Ø§Ù„Ù…Ø¬Ø§Ù„ Ø§Ù„Ø¥Ù†Ø³Ø§Ù†ÙŠ</p>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">A'mal fil-majalil-insani</h3>
+                            <p class="text-brand-500 font-medium mb-3">I work in the humanitarian field</p>
+                            <p class="text-xs text-slate-500 font-mono">A'mal (I work) + Fi (in) + Al-Majal (the field) + Al-Insani (humanitarian)</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center hover:border-brand-200 transition">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-3xl text-brand-700 font-bold mb-2">Ù†Ø­Ù† Ù†Ø³Ø§Ø¹Ø¯ Ø§Ù„Ù…Ø­ØªØ§Ø¬ÙŠÙ†</p>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">Nahnu nusa'idul muhtajin</h3>
+                            <p class="text-brand-500 font-medium mb-3">We help people in need</p>
+                            <p class="text-xs text-slate-500 font-mono">Nahnu (We) + Nusa'id (help) + Al-Muhtajin (people in need)</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 items-center hover:border-brand-200 transition">
+                        <div class="w-full md:w-1/3 text-center md:text-right border-b md:border-b-0 md:border-r border-slate-100 pb-4 md:pb-0 md:pr-6">
+                            <p class="arabic-text text-3xl text-brand-700 font-bold mb-2">ÙŠØ­ØªØ§Ø¬ Ø§Ù„Ù†Ø§Ø³ Ø¥Ù„Ù‰ Ø§Ù„Ø·Ø¹Ø§Ù… ÙˆØ§Ù„Ù…Ø§Ø¡</p>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <h3 class="text-xl font-bold text-slate-800">Yahtajunnas ilatta'am wal-maa</h3>
+                            <p class="text-brand-500 font-medium mb-3">People need food and water</p>
+                            <p class="text-xs text-slate-500 font-mono">Yahtaju (Need) + Al-Nas (people) + Ila (to) + Al-Ta'am (food) + Wa (and) + Al-Ma' (water)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise 3 -->
+                <div class="mt-8 bg-white rounded-2xl p-6 md:p-8 shadow-md border-t-4 border-t-accent-500">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-accent-100 text-accent-600 rounded-full flex items-center justify-center font-bold"><i class="fa-solid fa-language"></i></div>
+                        <h3 class="text-2xl font-bold text-slate-800">Exercise 3: Translate to Arabic</h3>
+                    </div>
+                    
+                    <div class="space-y-8" id="ex3-container">
+                        <!-- Q1 -->
+                        <div class="q-block" id="qblock-1">
+                            <p class="font-bold text-slate-700 mb-3">1. We help children and women.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <button onclick="selectAnswer(1, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Ana mutatawwi' insani</button>
+                                <button onclick="selectAnswer(1, this, true)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Nahnu nusa'idul atfal wan-nisa'</button>
+                                <button onclick="selectAnswer(1, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">A'mal fi al-majal al-insani</button>
+                            </div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="q-block" id="qblock-2">
+                            <p class="font-bold text-slate-700 mb-3">2. I am a humanitarian volunteer.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <button onclick="selectAnswer(2, this, true)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Ana mutatawwi' insani</button>
+                                <button onclick="selectAnswer(2, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Ana bikhair, alhamdulillah</button>
+                                <button onclick="selectAnswer(2, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Yahtajunnas ila ta'am</button>
+                            </div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="q-block" id="qblock-3">
+                            <p class="font-bold text-slate-700 mb-3">3. People need shelter and medicine.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <button onclick="selectAnswer(3, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Nahnu nusa'idul muhtajin</button>
+                                <button onclick="selectAnswer(3, this, false)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Ismi Ahmed wa ana min Surya</button>
+                                <button onclick="selectAnswer(3, this, true)" class="text-left px-4 py-3 border border-slate-200 rounded-xl hover:bg-slate-50 focus:outline-none transition">Yahtajunnas ilal-ma'wa wad-dawa'</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('conversation')" class="text-brand-700 font-semibold hover:text-brand-500 transition-all flex items-center gap-2">
+                        Next: Applied Conversation <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: CONVERSATION -->
+            <section id="conversation" class="tab-content">
+                <div class="mb-8 mt-8 md:mt-0">
+                    <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Hiwar (Ø­ÙˆØ§Ø±)</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Applied Conversation</h2>
+                    <p class="text-brand-100 mt-2">See all the modules come together in a realistic field encounter.</p>
+                </div>
+
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200 max-w-2xl mx-auto flex flex-col h-[600px]">
+                    <!-- Chat Header -->
+                    <div class="bg-slate-100 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center text-white font-bold"><i class="fa-solid fa-user-doctor"></i></div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Field Encounter</h4>
+                                <p class="text-xs text-slate-500">Local Community Member</p>
+                            </div>
+                        </div>
+                        <button onclick="autoPlayChat()" class="text-brand-600 hover:bg-brand-50 px-3 py-1.5 rounded-lg text-sm font-semibold transition flex items-center gap-2">
+                            <i class="fa-solid fa-play"></i> Auto-Play
+                        </button>
+                    </div>
+                    
+                    <!-- Chat Body -->
+                    <div id="chat-container" class="flex-1 overflow-y-auto p-6 space-y-4 bg-[url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23f1f5f9\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'3\'/%3E%3Ccircle cx=\'13\' cy=\'13\' r=\'3\'/%3E%3C/g%3E%3C/svg%3E')]">
+                        
+                        <!-- Initial state: Click to start or Auto Play -->
+                        <div id="chat-start-prompt" class="h-full flex flex-col items-center justify-center text-center">
+                            <div class="w-16 h-16 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center text-2xl mb-4">
+                                <i class="fa-solid fa-message"></i>
+                            </div>
+                            <h3 class="font-bold text-slate-700 text-lg">Ready to practice?</h3>
+                            <p class="text-slate-500 text-sm mb-4">Watch the conversation unfold step by step.</p>
+                            <button onclick="autoPlayChat()" class="bg-brand-500 hover:bg-brand-600 text-white px-6 py-2 rounded-full font-medium transition shadow-md">Start Conversation</button>
+                        </div>
+                        
+                        <!-- Chat messages injected via JS -->
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('vocabulary')" class="text-brand-700 font-semibold hover:text-brand-500 transition-all flex items-center gap-2">
+                        Next: Vocabulary Reference <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- TAB: VOCABULARY -->
+            <section id="vocabulary" class="tab-content">
+                <div class="mb-8 mt-8 md:mt-0 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+                    <div>
+                        <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Appendix</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Comprehensive Vocabulary</h2>
+                    </div>
+                    <div class="relative w-full md:w-64">
+                        <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="vocabSearch" onkeyup="filterVocab()" placeholder="Search glossary..." class="w-full pl-10 pr-4 py-2 rounded-lg border-0 shadow-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-200">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse" id="vocabTable">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                                    <th class="p-4 font-bold border-b border-slate-200 w-1/3 text-right">Arabic (Ø¹Ø±Ø¨ÙŠ)</th>
+                                    <th class="p-4 font-bold border-b border-slate-200 w-1/3">Transliteration</th>
+                                    <th class="p-4 font-bold border-b border-slate-200 w-1/3">Meaning</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-slate-700 text-sm divide-y divide-slate-100">
+                                <!-- Group: Greetings -->
+                                <tr class="bg-slate-50/50"><td colspan="3" class="px-4 py-2 font-bold text-brand-700 text-xs uppercase">Greetings & Expressions</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø§Ù„Ø³Ù„Ø§Ù… Ø¹Ù„ÙŠÙƒÙ…</td><td class="p-4 font-mono">Assalamu Alaikum</td><td class="p-4">Peace be upon you.</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø£Ù‡Ù„Ø§Ù‹ ÙˆØ³Ù‡Ù„Ø§Ù‹</td><td class="p-4 font-mono">Ahlan wa Sahlan</td><td class="p-4">Welcome.</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ø±Ø­Ø¨Ø§Ù‹</td><td class="p-4 font-mono">Marhaban</td><td class="p-4">Hello.</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">ÙƒÙŠÙ Ø­Ø§Ù„ÙƒØŸ</td><td class="p-4 font-mono">Kaifa haluk?</td><td class="p-4">How are you?</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø£Ù†Ø§ Ø¨Ø®ÙŠØ±ØŒ Ø§Ù„Ø­Ù…Ø¯ Ù„Ù„Ù‡</td><td class="p-4 font-mono">Ana bikhair, Alhamdulillah</td><td class="p-4">I am fine, praise be to Allah.</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">ÙˆØ£Ù†ØªØŸ</td><td class="p-4 font-mono">Wa anta?</td><td class="p-4">And you?</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø£Ù†Ø§ Ø¨Ø®ÙŠØ±</td><td class="p-4 font-mono">Ana bikhair</td><td class="p-4">I am fine.</td></tr>
+                                
+                                <!-- Group: Humanitarian Terms -->
+                                <tr class="bg-slate-50/50"><td colspan="3" class="px-4 py-2 font-bold text-brand-700 text-xs uppercase">Humanitarian Terms</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø¥Ù†Ø³Ø§Ù†</td><td class="p-4 font-mono">Insan</td><td class="p-4">Human / Person</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø¥Ù†Ø³Ø§Ù†ÙŠ</td><td class="p-4 font-mono">Insani</td><td class="p-4">Humanitarian</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø§Ù„Ø¹Ù…Ù„ Ø§Ù„Ø¥Ù†Ø³Ø§Ù†ÙŠ</td><td class="p-4 font-mono">Al-'amal al-insani</td><td class="p-4">Humanitarian work</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ø³Ø§Ø¹Ø¯Ø©</td><td class="p-4 font-mono">Musa'adah</td><td class="p-4">Help / Assistance</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ø³Ø§Ø¹Ø¯Ø§Øª</td><td class="p-4 font-mono">Musa'adat</td><td class="p-4">Aid</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ø­ØªØ§Ø¬</td><td class="p-4 font-mono">Muhtaj</td><td class="p-4">Person in need</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø·ÙÙ„ / Ø£Ø·ÙØ§Ù„</td><td class="p-4 font-mono">Tifl / Atfal</td><td class="p-4">Child / Children</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø§Ù…Ø±Ø£Ø© / Ù†Ø³Ø§Ø¡</td><td class="p-4 font-mono">Imra'ah / Nisa'</td><td class="p-4">Woman / Women</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø±Ø¬Ù„</td><td class="p-4 font-mono">Rajul</td><td class="p-4">Man</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø¹Ø§Ø¦Ù„Ø© / Ø£Ø³Ø±Ø©</td><td class="p-4 font-mono">'A'ilah / Usrah</td><td class="p-4">Family</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù„Ø§Ø¬Ø¦ / Ù„Ø§Ø¬Ø¦ÙˆÙ†</td><td class="p-4 font-mono">Laji' / Laji'un</td><td class="p-4">Refugee / Refugees</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ø¬ØªÙ…Ø¹</td><td class="p-4 font-mono">Mujtama'</td><td class="p-4">Community</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø·Ø¹Ø§Ù… / Ù…Ø§Ø¡ / Ø¯ÙˆØ§Ø¡ / Ù…Ø£ÙˆÙ‰</td><td class="p-4 font-mono">Ta'am/Ma'/Dawa'/Ma'wa</td><td class="p-4">Food/Water/Medicine/Shelter</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø³Ù„Ø§Ù… / Ø£Ù…Ø§Ù†</td><td class="p-4 font-mono">Salam / Aman</td><td class="p-4">Peace / Safety</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ø£Ø²Ù…Ø© / Ø­Ø±Ø¨</td><td class="p-4 font-mono">Azmah / Harb</td><td class="p-4">Crisis / War</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…Ù†Ø·Ù‚Ø© / Ù…Ù†Ø¸Ù…Ø©</td><td class="p-4 font-mono">Mintaqah / Munazzamah</td><td class="p-4">Area / Organization</td></tr>
+                                <tr><td class="p-4 arabic-text text-xl font-bold text-right text-slate-800">Ù…ØªØ·ÙˆØ¹ / ÙØ±ÙŠÙ‚</td><td class="p-4 font-mono">Mutatawwi' / Fariq</td><td class="p-4">Volunteer / Team</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Setup Mobile Navigation by cloning desktop nav
+        document.addEventListener('DOMContentLoaded', () => {
+            const deskNav = document.getElementById('sidebar-nav');
+            const mobNav = document.getElementById('mobile-nav');
+            mobNav.innerHTML = deskNav.innerHTML;
+            
+            // Re-bind click events for mobile nav to close the menu
+            const buttons = mobNav.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+            
+            // Initialize Alphabets
+            renderAlphabets();
+        });
+
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            
+            // Update active state in navs
+            updateNavActiveState(document.getElementById('sidebar-nav'), tabId);
+            updateNavActiveState(document.getElementById('mobile-nav'), tabId);
+            
+            // Scroll to top
+            document.querySelector('main').scrollTop = 0;
+        }
+
+        function updateNavActiveState(navContainer, tabId) {
+            if(!navContainer) return;
+            navContainer.querySelectorAll('button').forEach(btn => {
+                btn.classList.remove('active', 'bg-brand-900', 'text-white', 'font-semibold');
+                if(btn.getAttribute('onclick').includes(tabId)) {
+                    btn.classList.add('active', 'text-white', 'font-semibold');
+                }
+            });
+        }
+
+        // Mock Audio Function
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                // Find an Arabic voice if possible
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = window.speechSynthesis.getVoices();
+                const arabicVoice = voices.find(voice => voice.lang.includes('ar'));
+                if (arabicVoice) {
+                utterance.voice = arabicVoice;
+            }
+            window.speechSynthesis.speak(utterance);
+        } else {
+            console.log("Audio simulation playing for: " + text);
+            // Visual feedback could be added here
+        }
+    }
+
+    // --- ALPHABET LOGIC START ---
+    const arabicAlphabet = [
+        { ar: 'Ø§', name: 'Alif', roman: 'a / aa' },
+        { ar: 'Ø¨', name: 'Baa', roman: 'b' },
+        { ar: 'Øª', name: 'Taa', roman: 't' },
+        { ar: 'Ø«', name: 'Thaa', roman: 'th' },
+        { ar: 'Ø¬', name: 'Jeem', roman: 'j' },
+        { ar: 'Ø­', name: 'Haa', roman: 'h (crisp)' },
+        { ar: 'Ø®', name: 'Khaa', roman: 'kh' },
+        { ar: 'Ø¯', name: 'Daal', roman: 'd' },
+        { ar: 'Ø°', name: 'Thaal', roman: 'th (soft)' },
+        { ar: 'Ø±', name: 'Raa', roman: 'r' },
+        { ar: 'Ø²', name: 'Zay', roman: 'z' },
+        { ar: 'Ø³', name: 'Seen', roman: 's' },
+        { ar: 'Ø´', name: 'Sheen', roman: 'sh' },
+        { ar: 'Øµ', name: 'Saad', roman: 's (heavy)' },
+        { ar: 'Ø¶', name: 'Daad', roman: 'd (heavy)' },
+        { ar: 'Ø·', name: 'Taa', roman: 't (heavy)' },
+        { ar: 'Ø¸', name: 'Dhaa', roman: 'dh (heavy)' },
+        { ar: 'Ø¹', name: 'Ayn', roman: 'a (guttural)' },
+        { ar: 'Øº', name: 'Ghayn', roman: 'gh' },
+        { ar: 'Ù', name: 'Faa', roman: 'f' },
+        { ar: 'Ù‚', name: 'Qaaf', roman: 'q (deep)' },
+        { ar: 'Ùƒ', name: 'Kaaf', roman: 'k' },
+        { ar: 'Ù„', name: 'Laam', roman: 'l' },
+        { ar: 'Ù…', name: 'Meem', roman: 'm' },
+        { ar: 'Ù†', name: 'Noon', roman: 'n' },
+        { ar: 'Ù‡', name: 'Haa', roman: 'h' },
+        { ar: 'Ùˆ', name: 'Waaw', roman: 'w / uu' },
+        { ar: 'ÙŠ', name: 'Yaa', roman: 'y / ee' }
+    ];
+
+    let currentAlphaMode = 'learn';
+    let currentQuizLetter = null;
+
+    function renderAlphabets() {
+        const grid = document.getElementById('alphabet-grid');
+        if(!grid) return;
+        grid.innerHTML = '';
+        
+        arabicAlphabet.forEach(letter => {
+            const card = document.createElement('div');
+            card.className = "bg-white rounded-2xl p-4 shadow-sm border border-slate-100 flex flex-col items-center justify-center cursor-pointer hover:-translate-y-1 hover:shadow-md transition-all duration-300 hover:border-brand-300";
+            card.onclick = () => playAudio(letter.name); 
+            
+            const arText = document.createElement('span');
+            arText.className = "arabic-text text-5xl text-brand-700 font-bold mb-2";
+            arText.textContent = letter.ar;
+            card.appendChild(arText);
+            
+            if (currentAlphaMode === 'learn') {
+                const romText = document.createElement('span');
+                romText.className = "text-sm font-bold text-slate-800 uppercase tracking-wider mt-1";
+                romText.textContent = letter.name;
+                
+                const soundDesc = document.createElement('span');
+                soundDesc.className = "text-xs font-mono text-slate-500 bg-slate-50 border border-slate-100 px-2 py-1 rounded mt-1 text-center";
+                soundDesc.textContent = letter.roman;
+                
+                card.appendChild(romText);
+                card.appendChild(soundDesc);
+            }
+            
+            grid.appendChild(card);
+        });
+    }
+
+    function setAlphaMode(mode) {
+        currentAlphaMode = mode;
+        const btnLearn = document.getElementById('btn-mode-learn');
+        const btnTest = document.getElementById('btn-mode-test');
+        
+        if(mode === 'learn') {
+            btnLearn.className = 'px-4 py-2 rounded-lg text-sm font-bold bg-brand-500 text-white shadow-sm transition-all';
+            btnTest.className = 'px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 transition-all';
+        } else {
+            btnTest.className = 'px-4 py-2 rounded-lg text-sm font-bold bg-brand-500 text-white shadow-sm transition-all';
+            btnLearn.className = 'px-4 py-2 rounded-lg text-sm font-bold text-slate-500 hover:text-slate-700 transition-all';
+        }
+        
+        renderAlphabets();
+    }
+
+    function startAlphaQuiz() {
+        const container = document.getElementById('alpha-quiz-container');
+        container.classList.remove('hidden');
+        container.scrollIntoView({behavior: "smooth", block: "center"});
+        generateAlphaQuiz();
+    }
+
+    function closeAlphaQuiz() {
+        document.getElementById('alpha-quiz-container').classList.add('hidden');
+    }
+
+    function generateAlphaQuiz() {
+        const feedback = document.getElementById('alpha-quiz-feedback');
+        feedback.textContent = '';
+        feedback.className = 'mt-6 text-center text-lg font-bold min-h-[30px] rounded-lg py-2 max-w-md mx-auto';
+
+        const shuffled = [...arabicAlphabet].sort(() => 0.5 - Math.random());
+        const options = shuffled.slice(0, 4);
+        currentQuizLetter = options[Math.floor(Math.random() * 4)];
+        
+        document.getElementById('quiz-target-name').textContent = currentQuizLetter.name;
+        
+        const optsContainer = document.getElementById('alpha-quiz-options');
+        optsContainer.innerHTML = '';
+        
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = "bg-white hover:bg-slate-50 border-2 border-slate-200 rounded-xl py-6 arabic-text text-5xl font-bold text-brand-700 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/50 shadow-sm";
+            btn.textContent = opt.ar;
+            btn.onclick = () => checkAlphaAnswer(opt, btn);
+            optsContainer.appendChild(btn);
+        });
+        
+        setTimeout(() => playAudio(currentQuizLetter.name), 300);
+    }
+
+    function checkAlphaAnswer(selectedLetter, btnElement) {
+        const feedback = document.getElementById('alpha-quiz-feedback');
+        const buttons = document.getElementById('alpha-quiz-options').querySelectorAll('button');
+        buttons.forEach(b => b.disabled = true);
+        
+        if (selectedLetter.ar === currentQuizLetter.ar) {
+            btnElement.classList.replace('border-slate-200', 'border-emerald-500');
+            btnElement.classList.replace('bg-white', 'bg-emerald-50');
+            btnElement.classList.replace('text-brand-700', 'text-emerald-600');
+            
+            feedback.textContent = 'ðŸŽ‰ Excellent! That is correct.';
+            feedback.classList.add('bg-emerald-500/20', 'text-emerald-400');
+            
+            setTimeout(() => {
+                generateAlphaQuiz();
+            }, 1500);
+        } else {
+            btnElement.classList.replace('border-slate-200', 'border-rose-500');
+            btnElement.classList.replace('bg-white', 'bg-rose-50');
+            btnElement.classList.replace('text-brand-700', 'text-rose-600');
+            
+            feedback.textContent = 'âŒ Not quite. Keep trying!';
+            feedback.classList.add('bg-rose-500/20', 'text-rose-400');
+            
+            setTimeout(() => {
+                btnElement.classList.replace('border-rose-500', 'border-slate-200');
+                btnElement.classList.replace('bg-rose-50', 'bg-white');
+                btnElement.classList.replace('text-rose-600', 'text-brand-700');
+                feedback.textContent = '';
+                feedback.className = 'mt-6 text-center text-lg font-bold min-h-[30px] rounded-lg py-2 max-w-md mx-auto';
+                buttons.forEach(b => b.disabled = false);
+            }, 1200);
+        }
+    }
+    // --- ALPHABET LOGIC END ---
+
+    // Exercise 1 Validation
+    function checkEx1() {
+            const q1 = document.getElementById('ex1-q1').value.trim().toLowerCase();
+            const q2 = document.getElementById('ex1-q2').value.trim().toLowerCase();
+            const q3 = document.getElementById('ex1-q3').value.trim().toLowerCase();
+            
+            let correct = 0;
+            if(q1 === 'assalamu' || q1 === 'as-salamu' || q1 === 'assalam') correct++;
+            if(q2 === 'haluk' || q2 === 'haluk?') correct++;
+            if(q3 === 'bikhair' || q3 === 'bi-khair') correct++;
+            
+            const feedback = document.getElementById('ex1-feedback');
+            if(correct === 3) {
+                feedback.innerHTML = '<span class="text-emerald-500"><i class="fa-solid fa-check-circle"></i> Perfect! Well done.</span>';
+            } else {
+                feedback.innerHTML = `<span class="text-accent-600"><i class="fa-solid fa-circle-exclamation"></i> You got ${correct}/3. Keep trying! (Hint: Assalamu, haluk, bikhair)</span>`;
+            }
+        }
+
+        // Exercise 2 Generator
+        function generateIntro() {
+            let name = document.getElementById('ex2-name').value.trim();
+            let country = document.getElementById('ex2-country').value.trim();
+            let city = document.getElementById('ex2-city').value.trim();
+            
+            if(!name) name = "Sarah";
+            if(!country) country = "Canada";
+            if(!city) city = "Amman";
+            
+            document.getElementById('ex2-result').innerHTML = `
+                <p class="animate-pulse duration-75">Ismi <span class="text-brand-300 font-bold border-b border-brand-500 px-1">${name}</span>.</p>
+                <p class="animate-pulse duration-150 delay-75">Ana min <span class="text-brand-300 font-bold border-b border-brand-500 px-1">${country}</span>.</p>
+                <p class="animate-pulse duration-300 delay-150">A'ishu fi <span class="text-brand-300 font-bold border-b border-brand-500 px-1">${city}</span>.</p>
+            `;
+        }
+
+        // Exercise 3 Multiple Choice
+        function selectAnswer(qNumber, btnElement, isCorrect) {
+            // Get parent block
+            const block = document.getElementById(`qblock-${qNumber}`);
+            // Reset all buttons in this block
+            const buttons = block.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.classList.remove('bg-emerald-50', 'border-emerald-400', 'text-emerald-700', 'bg-rose-50', 'border-rose-400', 'text-rose-700');
+                // Remove icons if they exist
+                const icon = b.querySelector('i');
+                if(icon) icon.remove();
+            });
+            
+            // Style selected button
+            if(isCorrect) {
+                btnElement.classList.add('bg-emerald-50', 'border-emerald-400', 'text-emerald-700', 'font-semibold');
+                btnElement.innerHTML += ' <i class="fa-solid fa-check text-emerald-600 ml-2 float-right mt-1"></i>';
+            } else {
+                btnElement.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-700');
+                btnElement.innerHTML += ' <i class="fa-solid fa-xmark text-rose-600 ml-2 float-right mt-1"></i>';
+            }
+        }
+
+        // Applied Conversation Player
+        const conversationData = [
+            { role: 'user', arabic: 'ÙˆØ¹Ù„ÙŠÙƒÙ… Ø§Ù„Ø³Ù„Ø§Ù…ØŒ Ø£Ù‡Ù„Ø§Ù‹ Ø¨Ùƒ.', translit: 'Wa Alaikum Assalam, Ahlan bik.', eng: 'Peace be upon you too, welcome.' },
+            { role: 'interlocutor', arabic: 'ÙƒÙŠÙ Ø­Ø§Ù„ÙƒØŸ', translit: 'Kaifa haluk?', eng: 'How are you?' },
+            { role: 'user', arabic: 'Ø£Ù†Ø§ Ø¨Ø®ÙŠØ±ØŒ Ø§Ù„Ø­Ù…Ø¯ Ù„Ù„Ù‡.', translit: 'Ana bikhair, Alhamdulillah.', eng: 'I am fine, praise be to Allah.' },
+            { role: 'interlocutor', arabic: 'Ù…Ø§ Ø§Ø³Ù…ÙƒØŸ', translit: 'Ma ismuk?', eng: 'What is your name?' },
+            { role: 'user', arabic: 'Ø§Ø³Ù…ÙŠ Ø¬ÙˆÙ†.', translit: 'Ismi John.', eng: 'My name is John.' },
+            { role: 'interlocutor', arabic: 'Ù…Ù† Ø£ÙŠÙ† Ø£Ù†ØªØŸ', translit: 'Min aina anta?', eng: 'Where are you from?' },
+            { role: 'user', arabic: 'Ø£Ù†Ø§ Ù…Ù† ÙƒÙ†Ø¯Ø§.', translit: 'Ana min Canada.', eng: 'I am from Canada.' },
+            { role: 'interlocutor', arabic: 'Ø£ÙŠÙ† ØªØ¹ÙŠØ´ØŸ', translit: 'Aina ta\'ish?', eng: 'Where do you live?' },
+            { role: 'user', arabic: 'Ø£Ø¹ÙŠØ´ ÙÙŠ Ø§Ù„Ù…Ø®ÙŠÙ….', translit: 'A\'ishu fi al-mukhayyam.', eng: 'I live in the camp.' },
+            { role: 'interlocutor', arabic: 'Ù…Ø§ Ø¹Ù…Ù„ÙƒØŸ', translit: 'Ma \'amalak?', eng: 'What is your job?' },
+            { role: 'user', arabic: 'Ø£Ø¹Ù…Ù„ ÙÙŠ Ø§Ù„Ù…Ø¬Ø§Ù„ Ø§Ù„Ø¥Ù†Ø³Ø§Ù†ÙŠ.', translit: 'A\'mal fi al-majal al-insani.', eng: 'I work in the humanitarian field.' },
+            { role: 'interlocutor', arabic: 'Ù…Ø§Ø°Ø§ ØªÙØ¹Ù„ ÙÙŠ Ø¹Ù…Ù„ÙƒØŸ', translit: 'Madha taf\'alu fi \'amalik?', eng: 'What do you do in your work?' },
+            { role: 'user', arabic: 'Ø£Ø³Ø§Ø¹Ø¯ Ø§Ù„Ù†Ø§Ø³.', translit: 'Usa\'idu al-nas.', eng: 'I help people.' },
+            { role: 'interlocutor', arabic: 'Ù…Ù† ØªØ³Ø§Ø¹Ø¯ØŸ', translit: 'Man tusa\'id?', eng: 'Who do you help?' },
+            { role: 'user', arabic: 'Ø£Ø³Ø§Ø¹Ø¯ Ø§Ù„Ø£Ø·ÙØ§Ù„ ÙˆØ§Ù„Ù†Ø³Ø§Ø¡ ÙˆØ§Ù„Ù…Ø­ØªØ§Ø¬ÙŠÙ†.', translit: 'Usa\'idu al-atfal wa al-nisa\' wa al-muhtajin.', eng: 'I help children, women, and people in need.' },
+            { role: 'interlocutor', arabic: 'Ù…Ù…ØªØ§Ø²! Ø¨Ø§Ø±Ùƒ Ø§Ù„Ù„Ù‡ ÙÙŠÙƒ. ðŸ‘', translit: 'Mumtaz! Barak Allahu fik.', eng: 'Excellent! God bless you.' }
+        ];
+
+        let chatInterval;
+        let chatIndex = 0;
+
+        function autoPlayChat() {
+            const container = document.getElementById('chat-container');
+            if(chatIndex === 0) {
+                container.innerHTML = ''; // Clear prompt
+            }
+            
+            clearInterval(chatInterval);
+            
+            chatInterval = setInterval(() => {
+                if (chatIndex >= conversationData.length) {
+                    clearInterval(chatInterval);
+                    
+                    // Add replay button
+                    const replayDiv = document.createElement('div');
+                    replayDiv.className = "text-center mt-6 mb-4";
+                    replayDiv.innerHTML = `<button onclick="chatIndex=0; autoPlayChat();" class="text-brand-500 font-semibold hover:text-brand-600 bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200"><i class="fa-solid fa-rotate-right mr-2"></i> Replay Conversation</button>`;
+                    container.appendChild(replayDiv);
+                    container.scrollTop = container.scrollHeight;
+                    return;
+                }
+
+                const msg = conversationData[chatIndex];
+                const msgDiv = document.createElement('div');
+                
+                if (msg.role === 'user') {
+                    msgDiv.className = "flex justify-end mb-4 animate-[fadeIn_0.3s_ease-out]";
+                    msgDiv.innerHTML = `
+                        <div class="max-w-[75%] md:max-w-[60%] chat-bubble-user rounded-2xl p-4 shadow-sm relative">
+                            <p class="arabic-text text-xl font-bold mb-1 text-right" dir="rtl">${msg.arabic}</p>
+                            <p class="text-xs text-brand-100 font-mono mb-1 text-right">${msg.translit}</p>
+                            <p class="text-sm font-medium text-right text-brand-50 border-t border-brand-400 pt-1 mt-1">${msg.eng}</p>
+                        </div>
+                    `;
+                } else {
+                    msgDiv.className = "flex justify-start mb-4 animate-[fadeIn_0.3s_ease-out]";
+                    msgDiv.innerHTML = `
+                        <div class="max-w-[75%] md:max-w-[60%] chat-bubble-other rounded-2xl p-4 shadow-sm border border-slate-200 relative">
+                            <p class="arabic-text text-xl font-bold mb-1 text-brand-900" dir="rtl">${msg.arabic}</p>
+                            <p class="text-xs text-slate-500 font-mono mb-1">${msg.translit}</p>
+                            <p class="text-sm font-medium text-slate-600 border-t border-slate-200 pt-1 mt-1">${msg.eng}</p>
+                        </div>
+                    `;
+                }
+
+                container.appendChild(msgDiv);
+                container.scrollTop = container.scrollHeight;
+                
+                chatIndex++;
+            }, 1500); // 1.5 second delay between messages
+        }
+
+        // Vocabulary Search Filter
+        function filterVocab() {
+            const input = document.getElementById('vocabSearch');
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById('vocabTable');
+            const trs = table.getElementsByTagName('tr');
+
+            for (let i = 1; i < trs.length; i++) { // Skip header
+                const tr = trs[i];
+                // Skip category headers
+                if(tr.children.length === 1) continue; 
+                
+                const arabic = tr.children[0]?.textContent || "";
+                const translit = tr.children[1]?.textContent || "";
+                const meaning = tr.children[2]?.textContent || "";
+                
+                if (arabic.toLowerCase().indexOf(filter) > -1 || 
+                    translit.toLowerCase().indexOf(filter) > -1 || 
+                    meaning.toLowerCase().indexOf(filter) > -1) {
+                    tr.style.display = "";
+                } else {
+                    tr.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
