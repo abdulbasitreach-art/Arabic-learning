@@ -1,6 +1,7 @@
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,8 +87,21 @@
             border-bottom-left-radius: 0;
         }
     </style>
+
+<style>
+/* Keep the workbook interface left-to-right; Arabic content reads right-to-left. */
+.arabic-text { direction: rtl; unicode-bidi: plaintext; }
+#alphabet-grid,
+#alpha-quiz-options,
+#ch2-learn-grid,
+#ch2-detail-letters,
+#identify-word,
+#identify-built,
+#identify-bank,
+#arabicOnlyJoinsGrid { direction: rtl; }
+</style>
 </head>
-<body class="text-slate-800 antialiased h-screen flex overflow-hidden selection:bg-brand-500 selection:text-white">
+<body class="text-slate-800 antialiased h-screen flex overflow-hidden selection:bg-brand-500 selection:text-white" dir="ltr">
 
     <!-- Sidebar Navigation -->
     <aside class="w-72 bg-brand-950 text-slate-300 flex flex-col shadow-2xl z-20 hidden md:flex h-full">
@@ -663,29 +677,41 @@
                 <div class="mb-10 text-center md:text-left mt-8 md:mt-0">
                     <span class="inline-block py-1 px-3 rounded-full bg-accent-500/20 text-accent-500 font-bold text-xs uppercase tracking-widest mb-3 border border-accent-500/30">Chapter 2 · Lesson 3</span>
                     <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-4 shadow-sm">Joint Letters</h2>
-                    <p class="text-brand-100 text-lg max-w-2xl">Learn how Arabic words are formed by joining alphabets — and how some letters change shape depending on their position.</p>
+                    <p class="text-brand-100 text-lg max-w-2xl">These are joint letters. We still read every alphabet separately — never as one English-style word.</p>
                 </div>
 
                 <div class="glass-card rounded-2xl p-6 md:p-8 bg-white mb-8">
-                    <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-info text-brand-500"></i> Instructions</h3>
-                    <p class="text-slate-600 leading-relaxed">In this lesson we will learn how words are formed by joining alphabets. Identify every letter in a word. For example, <span class="arabic-text font-arabic text-2xl text-brand-700 px-1">لا</span> is actually <span class="arabic-text font-arabic text-2xl text-brand-700 px-1">ل</span> + <span class="arabic-text font-arabic text-2xl text-brand-700 px-1">ا</span>. We will also learn the different shapes of particular letters (initial, medial, final, and isolated).</p>
+                    <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-info text-brand-500"></i> How to read</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">Look at the joined shape, then name each letter on its own. Audio does the same: one letter, then the next.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="arabic-text font-arabic text-4xl text-brand-800 mb-1" dir="rtl">لا</p>
+                            <p class="text-sm font-bold text-emerald-700">Laam, Alif</p>
+                            <p class="text-xs text-slate-500">Not “laa” as one word</p>
+                        </div>
+                        <div class="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                            <p class="arabic-text font-arabic text-4xl text-brand-800 mb-1" dir="rtl">بلب</p>
+                            <p class="text-sm font-bold text-emerald-700">Baa, Laam, Baa</p>
+                            <p class="text-xs text-slate-500">Not “balb”</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="glass-card rounded-2xl p-6 bg-white">
                         <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-link"></i></div>
-                        <h3 class="text-lg font-bold text-slate-800 mb-2">See the join</h3>
-                        <p class="text-slate-600 text-sm">Tap any joined word from the workbook to split it into its original letters.</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Read letter by letter</h3>
+                        <p class="text-slate-600 text-sm">Tap a join to hear Alif, Baa, Laam… with a pause after each name.</p>
                     </div>
                     <div class="glass-card rounded-2xl p-6 bg-white">
                         <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-shapes"></i></div>
-                        <h3 class="text-lg font-bold text-slate-800 mb-2">Shape changes</h3>
-                        <p class="text-slate-600 text-sm">Practice isolated, initial, medial, and final forms, including the special <span class="arabic-text font-arabic text-xl">لا</span> ligature.</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Same letter, different drawing</h3>
+                        <p class="text-slate-600 text-sm">Workbook handwriting and screen fonts look different on purpose, so you can still recognise Baa, Jeem, Kaaf, and the rest.</p>
                     </div>
                     <div class="glass-card rounded-2xl p-6 bg-white">
                         <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-list-check"></i></div>
-                        <h3 class="text-lg font-bold text-slate-800 mb-2">Quiz yourself</h3>
-                        <p class="text-slate-600 text-sm">Identify every alphabet inside a word, then take a scored chapter quiz.</p>
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Practice the same way</h3>
+                        <p class="text-slate-600 text-sm">Quizzes ask you to name the letters in order, not to pronounce a joined word.</p>
                     </div>
                 </div>
 
@@ -700,7 +726,7 @@
                 <div class="mb-8 mt-8 md:mt-0">
                     <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Workbook pages 04–06</span>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Learn the Joins</h2>
-                    <p class="text-brand-100 mt-2">Every cell from workbook pages 04–06 is here, including repeated letters. Tap a word to split it into its alphabets.</p>
+                    <p class="text-brand-100 mt-2">Workbook order, including repeats. Tap a join — it opens the exact constituent letters in sequence.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-4 mb-6 flex flex-wrap gap-2 items-center shadow-sm border border-slate-100" id="ch2-letter-filters"></div>
@@ -709,12 +735,13 @@
                 <div id="ch2-word-detail" class="hidden bg-slate-900 rounded-3xl p-6 md:p-8 text-white shadow-2xl">
                     <div class="flex justify-between items-start gap-4">
                         <div>
-                            <p class="text-brand-300 text-xs font-bold uppercase tracking-widest mb-2">Selected word</p>
+                            <p class="text-brand-300 text-xs font-bold uppercase tracking-widest mb-2">Joined shape — read separately</p>
                             <p id="ch2-detail-word" class="arabic-text font-arabic text-6xl md:text-7xl leading-none" dir="rtl"></p>
+                            <p id="ch2-detail-read" class="text-accent-500 font-bold mt-3 text-lg"></p>
                         </div>
-                        <button onclick="playAudio(document.getElementById('ch2-detail-word').textContent)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-4 py-2 rounded-xl text-sm font-semibold"><i class="fa-solid fa-volume-high mr-2"></i>Listen</button>
+                        <button onclick="currentJointItem && playLetterNames(currentJointItem.letters)" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-4 py-2 rounded-xl text-sm font-semibold"><i class="fa-solid fa-volume-high mr-2"></i>Listen letters</button>
                     </div>
-                    <p class="text-slate-400 mt-6 mb-3 font-medium">These letters join to make the word:</p>
+                    <p class="text-slate-400 mt-6 mb-3 font-medium">Name each letter. Do not blend them into one word.</p>
                     <div id="ch2-detail-letters" class="flex flex-wrap gap-3" dir="rtl"></div>
                 </div>
 
@@ -729,7 +756,7 @@
                 <div class="mb-8 mt-8 md:mt-0">
                     <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Positional forms</span>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Different Shapes</h2>
-                    <p class="text-brand-100 mt-2">Most Arabic letters change shape. Dual letters (ا د ذ ر ز و) do not connect to the next letter.</p>
+                    <p class="text-brand-100 mt-2">Workbook pages use a handwritten style. On screen we use Amiri and Scheherazade New — different drawings of the same letter, so you can recognise it anywhere.</p>
                 </div>
 
                 <div id="ch2-shapes-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"></div>
@@ -757,13 +784,13 @@
                 <div class="mb-8 mt-8 md:mt-0">
                     <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Exercise</span>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Identify Every Letter</h2>
-                    <p class="text-brand-100 mt-2">Tap the isolated letters in the correct order (right to left) to rebuild the word.</p>
+                    <p class="text-brand-100 mt-2">Name the letters in order. For بلب choose Baa, then Laam, then Baa — not “balb”.</p>
                 </div>
 
                 <div class="bg-white rounded-3xl p-6 md:p-10 shadow-xl border border-slate-100">
                     <div class="flex justify-between items-center mb-6">
-                        <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Build this word</p>
-                        <button onclick="playAudio(identifyTarget?.word || '')" class="text-brand-600 font-semibold text-sm"><i class="fa-solid fa-volume-high mr-1"></i> Listen</button>
+                        <p class="text-sm font-bold text-slate-500 uppercase tracking-widest">Read this join letter by letter</p>
+                        <button onclick="identifyTarget && playLetterNames(identifyTarget.letters)" class="text-brand-600 font-semibold text-sm"><i class="fa-solid fa-volume-high mr-1"></i> Listen letters</button>
                     </div>
                     <p id="identify-word" class="arabic-text font-arabic text-7xl text-center text-brand-800 mb-8" dir="rtl"></p>
                     <div id="identify-built" class="flex justify-center gap-2 min-h-[4.5rem] mb-6 flex-wrap" dir="rtl"></div>
@@ -787,13 +814,13 @@
                 <div class="mb-8 mt-8 md:mt-0">
                     <span class="text-accent-500 font-bold text-sm uppercase tracking-widest">Assessment</span>
                     <h2 class="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">Chapter 2 Quiz</h2>
-                    <p class="text-brand-100 mt-2">10 questions from the joint-letter workbook. Score at the end.</p>
+                    <p class="text-brand-100 mt-2">10 questions: name the letters in order and recognise their shapes, using the same workbook sequence.</p>
                 </div>
 
                 <div id="ch2-quiz-start" class="bg-white rounded-3xl p-10 text-center shadow-xl">
                     <div class="w-16 h-16 bg-brand-50 text-brand-500 rounded-full flex items-center justify-center text-2xl mb-4 mx-auto"><i class="fa-solid fa-clipboard-question"></i></div>
                     <h3 class="text-2xl font-bold text-slate-800 mb-2">Ready?</h3>
-                    <p class="text-slate-500 mb-6">You will see joined words, letter shapes, and the special <span class="arabic-text font-arabic text-2xl">لا</span> ligature.</p>
+                    <p class="text-slate-500 mb-6">Read joins as separate letters. Example: <span class="arabic-text font-arabic text-2xl">بلب</span> is Baa, Laam, Baa.</p>
                     <button onclick="startCh2Quiz()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg">Start Quiz</button>
                 </div>
 
@@ -925,6 +952,28 @@
             } else {
                 console.log("Audio simulation playing for: " + text);
             }
+        }
+
+        let letterSpeakTimers = [];
+        function playLetterNames(letters) {
+            if (!letters || !letters.length) return;
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            letterSpeakTimers.forEach(clearTimeout);
+            letterSpeakTimers = [];
+            letters.forEach((ltr, i) => {
+                const t = setTimeout(() => {
+                    document.querySelectorAll('.joint-letter-chip').forEach((el, j) => {
+                        el.classList.toggle('ring-2', j === i);
+                        el.classList.toggle('ring-accent-500', j === i);
+                        el.classList.toggle('bg-slate-700', j === i);
+                    });
+                    const utterance = new SpeechSynthesisUtterance(letterNameEn(ltr));
+                    utterance.lang = 'en-US';
+                    utterance.rate = 0.8;
+                    window.speechSynthesis.speak(utterance);
+                }, i * 950);
+                letterSpeakTimers.push(t);
+            });
         }
 
     // --- ALPHABET LOGIC START ---
@@ -1242,89 +1291,129 @@
         }
 
         // --- CHAPTER 2: JOINT LETTERS ---
-        const LA = { note: 'Special ligature: Laam + Alif' };
-        function jc(word, letters, extra = {}) {
+        const LETTER_NAME_EN = {
+            'ا':'Alif','أ':'Alif','ب':'Baa','ت':'Taa','ث':'Thaa','ج':'Jeem','ح':'Haa','خ':'Khaa',
+            'د':'Daal','ذ':'Dhaal','ر':'Raa','ز':'Zay','س':'Seen','ش':'Sheen','ص':'Saad','ض':'Daad',
+            'ط':'Taa','ظ':'Dhaa','ع':'Ayn','غ':'Ghayn','ف':'Faa','ق':'Qaaf','ك':'Kaaf','ک':'Kaaf',
+            'ل':'Laam','م':'Meem','ن':'Noon','ه':'Haa','ہ':'Haa','ھ':'Haa','ة':'Taa','ۃ':'Taa',
+            'و':'Waaw','ي':'Yaa','ی':'Yaa','ئ':'Yaa','ء':'Hamza'
+        };
+        function letterNameEn(ch) { return LETTER_NAME_EN[ch] || ch; }
+        function readAloud(letters) { return letters.map(letterNameEn).join(', '); }
+
+        function splitJointLetters(display) {
+            return [...display].filter(ch => /[\u0600-\u06FF]/.test(ch)).map(ch => ch);
+        }
+        function jc(word) {
+            const letters = splitJointLetters(word);
             return {
                 word,
                 letters,
-                group: extra.group || letters[0],
-                isolated: extra.isolated ?? (letters.length === 1 && !word.includes('ـ')),
-                note: extra.note
+                group: letters[0] || '',
+                isolated: letters.length === 1,
+                read: readAloud(letters)
             };
         }
+        function cells(...tokens) {
+            return tokens.map(t => (t ? jc(t) : null));
+        }
 
-        /* Every workbook cell, including repeats. Each row is RTL (right-to-left), 5 columns. */
+        // Exact workbook sequence supplied for "Learn the Joins".
+        // The order is authoritative: every dependent Chapter 2 activity reads from this array.
         const jointPages = [
             {
                 page: '04',
                 title: 'Page 04',
                 rows: [
-                    [jc('ا', ['ا']), jc('ا', ['ا']), jc('لا', ['ل', 'ا'], LA), jc('با', ['ب', 'ا']), jc('بـ', ['ب'], { group: 'ب' })],
-                    [jc('ل', ['ل']), jc('لا', ['ل', 'ا'], LA), jc('لح', ['ل', 'ح']), jc('لا', ['ل', 'ا'], LA), jc('بلب', ['ب', 'ل', 'ب'])],
-                    [jc('ك', ['ك']), jc('كب', ['ك', 'ب']), jc('كتب', ['ك', 'ت', 'ب']), jc('كب', ['ك', 'ب']), jc('كا', ['ك', 'ا'])],
-                    [jc('ت', ['ت']), jc('ب', ['ب']), jc('تلت', ['ت', 'ل', 'ت']), jc('بكت', ['ب', 'ك', 'ت']), jc('ت', ['ت'])],
-                    [jc('ث', ['ث']), jc('ن', ['ن']), jc('با', ['ب', 'ا']), jc('با', ['ب', 'ا']), jc('نا', ['ن', 'ا'])],
-                    [jc('تا', ['ت', 'ا']), jc('يا', ['ي', 'ا']), jc('ثا', ['ث', 'ا']), jc('بس', ['ب', 'س']), jc('تيس', ['ت', 'ي', 'س'])],
-                    [jc('نس', ['ن', 'س']), jc('تيس', ['ت', 'ي', 'س']), jc('ش', ['ش']), jc('شج', ['ش', 'ج']), jc('مح', ['م', 'ح'])]
+                    cells('لا', 'لا', 'با', 'لا'),
+                    cells('ل', 'لا', 'لح', 'لا', 'بلب'),
+                    cells('ک', 'ک', 'کب', 'كب', 'کا'),
+                    cells('کا', 'بکت', 'تكث', 'ب', 'ت'),
+                    cells('ث', 'ن', 'ی', 'با', 'نا'),
+                    cells('تا', 'یا', 'ثا', 'بس', 'یس'),
+                    cells('نس', 'تس', 'ثس', 'ثج', 'تح')
                 ]
             },
             {
                 page: '05',
                 title: 'Page 05',
                 rows: [
-                    [jc('نخ', ['ن', 'خ']), jc('تيج', ['ت', 'ي', 'ج']), jc('نج', ['ن', 'ج']), jc('يم', ['ي', 'م']), jc('م', ['م'])],
-                    [jc('نم', ['ن', 'م']), jc('تم', ['ت', 'م']), jc('ثم', ['ث', 'م']), jc('ني', ['ن', 'ي']), jc('ني', ['ن', 'ي'])],
-                    [jc('ني', ['ن', 'ي']), jc('تي', ['ت', 'ي']), jc('ني', ['ن', 'ي']), jc('نبل', ['ن', 'ب', 'ل']), jc('تنل', ['ت', 'ن', 'ل'])],
-                    [jc('بيل', ['ب', 'ي', 'ل']), jc('يتل', ['ي', 'ت', 'ل']), jc('ثل', ['ث', 'ل']), jc('نبن', ['ن', 'ب', 'ن']), jc('بتن', ['ب', 'ت', 'ن'])],
-                    [jc('تين', ['ت', 'ي', 'ن']), jc('يتن', ['ي', 'ت', 'ن']), jc('ثن', ['ث', 'ن']), jc('ج', ['ج']), jc('ح', ['ح'])],
-                    [jc('خ', ['خ']), jc('حث', ['ح', 'ث']), jc('خب', ['خ', 'ب']), jc('جت', ['ج', 'ت']), jc('تحت', ['ت', 'ح', 'ت'])],
-                    [jc('يبج', ['ي', 'ب', 'ج']), jc('يبخت', ['ي', 'ب', 'خ', 'ت']), jc('ة', ['ة'], { group: 'ه' }), jc('ة', ['ة'], { group: 'ه' }), jc('ية', ['ي', 'ة'], { group: 'ه' })],
-                    [jc('يه', ['ي', 'ه']), jc('ته', ['ت', 'ه']), jc('ة', ['ة'], { group: 'ه' }), jc('ه', ['ه']), jc('يهب', ['ي', 'ه', 'ب'])],
-                    [jc('بها', ['ب', 'ه', 'ا']), jc('مد', ['م', 'د']), jc('د', ['د']), jc('ذ', ['ذ']), jc('جد', ['ج', 'د'])],
-                    [jc('خذ', ['خ', 'ذ']), jc('سا', ['س', 'ا']), jc('ش', ['ش']), jc('جر', ['ج', 'ر']), jc('خر', ['خ', 'ر'])]
+                    cells('نخ', 'یح', 'بج', 'یم', 'بم'),
+                    cells('نم', 'تم', 'ثم', 'بی', 'یی'),
+                    cells('نی', 'تی', 'ثی', 'نبل', 'تنل'),
+                    cells('بیل', 'یتل', 'ثثل', 'نبن', 'بنن'),
+                    cells('تین', 'یتن', 'ثثن', 'ج', 'ح'),
+                    cells('خ', 'حث', 'خب', 'جت', 'تحت'),
+                    cells('یجب', 'بخت', 'ۃ', 'ہ', 'بۃ'),
+                    cells('یہ', 'تہ', 'نۃ', 'ھ', 'یھب'),
+                    cells('بھا', 'بہم', 'د', 'ذ', 'جد'),
+                    cells('خذ', 'ر', 'ز', 'جر', 'خز')
                 ]
             },
             {
                 page: '06',
                 title: 'Page 06',
                 rows: [
-                    [jc('ر', ['ر']), jc('ز', ['ز']), jc('ير', ['ي', 'ر']), jc('تز', ['ت', 'ز']), jc('س', ['س'])],
-                    [jc('ش', ['ش']), jc('سل', ['س', 'ل']), jc('شل', ['ش', 'ل']), jc('ص', ['ص']), jc('ض', ['ض'])],
-                    [jc('ط', ['ط']), jc('ظ', ['ظ']), jc('صب', ['ص', 'ب']), jc('طب', ['ط', 'ب']), jc('ضا', ['ض', 'ا'])],
-                    [jc('ظا', ['ظ', 'ا']), jc('ع', ['ع']), jc('غ', ['غ']), jc('ء', ['ء']), jc('عز', ['ع', 'ز'])],
-                    [jc('غر', ['غ', 'ر']), jc('صع', ['ص', 'ع']), jc('ضغ', ['ض', 'غ']), jc('بعد', ['ب', 'ع', 'د']), jc('تغذ', ['ت', 'غ', 'ذ'])],
-                    [jc('أ', ['أ'], { group: 'ء' }), jc('و', ['و']), jc('ئ', ['ئ'], { group: 'ء' }), jc('ف', ['ف']), jc('ق', ['ق'])],
-                    [jc('و', ['و']), jc('قو', ['ق', 'و']), jc('فو', ['ف', 'و']), jc('فقل', ['ف', 'ق', 'ل']), jc('قفل', ['ق', 'ف', 'ل'])],
-                    [jc('يف', ['ي', 'ف']), jc('م', ['م']), jc('م', ['م']), jc('حم', ['ح', 'م']), jc('لم', ['ل', 'م'])],
-                    [null, null, null, jc('تمت', ['ت', 'م', 'ت']), jc('تم', ['ت', 'م'])]
+                    cells('ر', 'ز', 'یر', 'تر', 'س'),
+                    cells('ش', 'سل', 'شل', 'ص', 'ض'),
+                    cells('ط', 'ظ', 'صب', 'طب', 'ضا'),
+                    cells('ظا', 'ع', 'غ', 'ء', 'عز'),
+                    cells('غر', 'صع', 'ضغ', 'بعد', 'تغذ'),
+                    cells('ا', 'و', 'ی', 'ف', 'ق'),
+                    cells('و', 'قو', 'فو', 'فقل', 'قفل'),
+                    cells('یف', 'م', 'م', 'حم', 'لم'),
+                    cells('تم', 'تمت', null, null, null)
                 ]
             }
         ];
 
         const jointItems = jointPages.flatMap(p => p.rows.flat()).filter(Boolean);
+        let currentJointItem = null;
 
-        const letterShapes = [
-            { letter: 'ب', name: 'Baa', isolated: 'ب', initial: 'بـ', medial: 'ـبـ', final: 'ـب', connecting: true },
-            { letter: 'ت', name: 'Taa', isolated: 'ت', initial: 'تـ', medial: 'ـتـ', final: 'ـت', connecting: true },
-            { letter: 'ث', name: 'Thaa', isolated: 'ث', initial: 'ثـ', medial: 'ـثـ', final: 'ـث', connecting: true },
-            { letter: 'ج', name: 'Jeem', isolated: 'ج', initial: 'جـ', medial: 'ـجـ', final: 'ـج', connecting: true },
-            { letter: 'ح', name: 'Haa', isolated: 'ح', initial: 'حـ', medial: 'ـحـ', final: 'ـح', connecting: true },
-            { letter: 'خ', name: 'Khaa', isolated: 'خ', initial: 'خـ', medial: 'ـخـ', final: 'ـخ', connecting: true },
-            { letter: 'س', name: 'Seen', isolated: 'س', initial: 'سـ', medial: 'ـسـ', final: 'ـس', connecting: true },
-            { letter: 'ش', name: 'Sheen', isolated: 'ش', initial: 'شـ', medial: 'ـشـ', final: 'ـش', connecting: true },
-            { letter: 'ع', name: 'Ayn', isolated: 'ع', initial: 'عـ', medial: 'ـعـ', final: 'ـع', connecting: true },
-            { letter: 'ف', name: 'Faa', isolated: 'ف', initial: 'فـ', medial: 'ـفـ', final: 'ـف', connecting: true },
-            { letter: 'ك', name: 'Kaaf', isolated: 'ك', initial: 'كـ', medial: 'ـكـ', final: 'ـك', connecting: true },
-            { letter: 'ل', name: 'Laam', isolated: 'ل', initial: 'لـ', medial: 'ـلـ', final: 'ـل', connecting: true },
-            { letter: 'م', name: 'Meem', isolated: 'م', initial: 'مـ', medial: 'ـمـ', final: 'ـم', connecting: true },
-            { letter: 'ن', name: 'Noon', isolated: 'ن', initial: 'نـ', medial: 'ـنـ', final: 'ـن', connecting: true },
-            { letter: 'ه', name: 'Haa', isolated: 'ه', initial: 'هـ', medial: 'ـهـ', final: 'ـه', connecting: true },
-            { letter: 'ي', name: 'Yaa', isolated: 'ي', initial: 'يـ', medial: 'ـيـ', final: 'ـي', connecting: true },
-            { letter: 'ا', name: 'Alif', isolated: 'ا', initial: 'ا', medial: 'ـا', final: 'ـا', connecting: false },
-            { letter: 'د', name: 'Daal', isolated: 'د', initial: 'د', medial: 'ـد', final: 'ـد', connecting: false },
-            { letter: 'ر', name: 'Raa', isolated: 'ر', initial: 'ر', medial: 'ـر', final: 'ـر', connecting: false },
-            { letter: 'و', name: 'Waaw', isolated: 'و', initial: 'و', medial: 'ـو', final: 'ـو', connecting: false }
-        ];
+        /*
+         * Shape data is generated from letters that actually occur in jointItems.
+         * This keeps Shape Changes aligned with the exact workbook sequence while
+         * preserving the existing card/quiz UI.
+         */
+        const SHAPE_TEMPLATES = {
+            'ا': { name: 'Alif', isolated: 'ا', initial: 'ا', medial: 'ـا', final: 'ـا', connecting: false },
+            'ب': { name: 'Baa', isolated: 'ب', initial: 'بـ', medial: 'ـبـ', final: 'ـب', connecting: true },
+            'ت': { name: 'Taa', isolated: 'ت', initial: 'تـ', medial: 'ـتـ', final: 'ـت', connecting: true },
+            'ث': { name: 'Thaa', isolated: 'ث', initial: 'ثـ', medial: 'ـثـ', final: 'ـث', connecting: true },
+            'ج': { name: 'Jeem', isolated: 'ج', initial: 'جـ', medial: 'ـجـ', final: 'ـج', connecting: true },
+            'ح': { name: 'Haa', isolated: 'ح', initial: 'حـ', medial: 'ـحـ', final: 'ـح', connecting: true },
+            'خ': { name: 'Khaa', isolated: 'خ', initial: 'خـ', medial: 'ـخـ', final: 'ـخ', connecting: true },
+            'د': { name: 'Daal', isolated: 'د', initial: 'د', medial: 'ـد', final: 'ـد', connecting: false },
+            'ذ': { name: 'Dhaal', isolated: 'ذ', initial: 'ذ', medial: 'ـذ', final: 'ـذ', connecting: false },
+            'ر': { name: 'Raa', isolated: 'ر', initial: 'ر', medial: 'ـر', final: 'ـر', connecting: false },
+            'ز': { name: 'Zay', isolated: 'ز', initial: 'ز', medial: 'ـز', final: 'ـز', connecting: false },
+            'س': { name: 'Seen', isolated: 'س', initial: 'سـ', medial: 'ـسـ', final: 'ـس', connecting: true },
+            'ش': { name: 'Sheen', isolated: 'ش', initial: 'شـ', medial: 'ـشـ', final: 'ـش', connecting: true },
+            'ص': { name: 'Saad', isolated: 'ص', initial: 'صـ', medial: 'ـصـ', final: 'ـص', connecting: true },
+            'ض': { name: 'Daad', isolated: 'ض', initial: 'ضـ', medial: 'ـضـ', final: 'ـض', connecting: true },
+            'ط': { name: 'Taa (heavy)', isolated: 'ط', initial: 'طـ', medial: 'ـطـ', final: 'ـط', connecting: true },
+            'ظ': { name: 'Dhaa (heavy)', isolated: 'ظ', initial: 'ظـ', medial: 'ـظـ', final: 'ـظ', connecting: true },
+            'ع': { name: 'Ayn', isolated: 'ع', initial: 'عـ', medial: 'ـعـ', final: 'ـع', connecting: true },
+            'غ': { name: 'Ghayn', isolated: 'غ', initial: 'غـ', medial: 'ـغـ', final: 'ـغ', connecting: true },
+            'ء': { name: 'Hamza', isolated: 'ء', initial: 'ء', medial: 'ء', final: 'ء', connecting: false },
+            'ف': { name: 'Faa', isolated: 'ف', initial: 'فـ', medial: 'ـفـ', final: 'ـف', connecting: true },
+            'ق': { name: 'Qaaf', isolated: 'ق', initial: 'قـ', medial: 'ـقـ', final: 'ـق', connecting: true },
+            'ک': { name: 'Kaaf', isolated: 'ک', initial: 'کـ', medial: 'ـکـ', final: 'ـک', connecting: true },
+            'ك': { name: 'Kaaf', isolated: 'ك', initial: 'كـ', medial: 'ـكـ', final: 'ـك', connecting: true },
+            'ل': { name: 'Laam', isolated: 'ل', initial: 'لـ', medial: 'ـلـ', final: 'ـل', connecting: true },
+            'م': { name: 'Meem', isolated: 'م', initial: 'مـ', medial: 'ـمـ', final: 'ـم', connecting: true },
+            'ن': { name: 'Noon', isolated: 'ن', initial: 'نـ', medial: 'ـنـ', final: 'ـن', connecting: true },
+            'ہ': { name: 'Haa', isolated: 'ہ', initial: 'ہـ', medial: 'ـہـ', final: 'ـہ', connecting: true },
+            'ھ': { name: 'Haa', isolated: 'ھ', initial: 'ھـ', medial: 'ـھـ', final: 'ـھ', connecting: true },
+            'ۃ': { name: 'Taa Marbuta', isolated: 'ۃ', initial: 'ۃ', medial: 'ۃ', final: 'ۃ', connecting: false },
+            'و': { name: 'Waaw', isolated: 'و', initial: 'و', medial: 'ـو', final: 'ـو', connecting: false },
+            'ی': { name: 'Yaa', isolated: 'ی', initial: 'یـ', medial: 'ـیـ', final: 'ـی', connecting: true }
+        };
+
+        const datasetLetters = [...new Set(jointItems.flatMap(item => item.letters))];
+        const letterShapes = datasetLetters
+            .map(letter => SHAPE_TEMPLATES[letter] ? ({ letter, ...SHAPE_TEMPLATES[letter] }) : null)
+            .filter(Boolean);
 
         let jointFilter = 'all';
 
@@ -1332,7 +1421,7 @@
             const btn = document.createElement('button');
             btn.className = 'bg-amber-50 hover:bg-white border-2 border-amber-100 hover:border-brand-400 rounded-xl py-5 px-2 shadow-sm transition-all min-h-[6.5rem]';
             btn.innerHTML = `<span class="arabic-text font-arabic text-4xl text-brand-800 block">${item.word}</span>
-                <span class="text-[10px] uppercase tracking-wider font-bold ${item.isolated ? 'text-accent-600' : 'text-slate-400'}">${item.isolated ? 'Isolated' : item.letters.join(' + ')}</span>`;
+                <span class="text-[10px] font-bold ${item.isolated ? 'text-accent-600' : 'text-slate-500'}">${item.read}</span>`;
             btn.onclick = () => showJointDetail(item);
             return btn;
         }
@@ -1385,17 +1474,18 @@
         }
 
         function showJointDetail(item) {
+            currentJointItem = item;
             const box = document.getElementById('ch2-word-detail');
             box.classList.remove('hidden');
             document.getElementById('ch2-detail-word').textContent = item.word;
             const row = document.getElementById('ch2-detail-letters');
             row.innerHTML = item.letters.map((ltr, i) => `
-                <div class="bg-slate-800 border border-slate-600 rounded-2xl px-5 py-3 text-center min-w-[4.5rem]">
+                <div class="joint-letter-chip bg-slate-800 border border-slate-600 rounded-2xl px-5 py-3 text-center min-w-[4.5rem]">
                     <p class="arabic-text font-arabic text-4xl text-accent-500">${ltr}</p>
                     <p class="text-[10px] text-slate-400 mt-1">${i + 1}</p>
                 </div>
             `).join('') + (item.note ? `<p class="w-full text-brand-300 text-sm mt-2">${item.note}</p>` : '');
-            playAudio(item.word);
+            playLetterNames(item.letters);
             box.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -1465,7 +1555,8 @@
             document.getElementById('identify-word').textContent = identifyTarget.word;
             document.getElementById('identify-feedback').textContent = '';
             renderIdentifyBuilt();
-            const distractors = ['ا','ب','ت','ث','ج','ح','خ','د','ذ','ر','ز','س','ش','ص','ض','ط','ظ','ع','غ','ف','ق','ك','ل','م','ن','ه','و','ي','ة','ء']
+            const availableLetters = [...new Set(jointItems.flatMap(item => item.letters))];
+            const distractors = availableLetters
                 .filter(l => !identifyTarget.letters.includes(l))
                 .sort(() => 0.5 - Math.random())
                 .slice(0, 4);
@@ -1518,32 +1609,34 @@
             const joined = jointItems.filter(i => i.letters.length > 1);
             const qs = [];
             const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            const uniqueJoined = [...new Map(joined.map(item => [item.word + '|' + item.letters.join(''), item])).values()];
 
-            for (let i = 0; i < 4; i++) {
-                const item = pick(joined);
-                const wrong = pick(joined.filter(w => w.word !== item.word));
+            // Split questions are sampled only from the new sequential dataset.
+            for (let i = 0; i < 6 && uniqueJoined.length; i++) {
+                const item = pick(uniqueJoined);
+                const wrongPool = uniqueJoined.filter(w =>
+                    w.word !== item.word || w.letters.join('') !== item.letters.join('')
+                );
+                const wrong = wrongPool.length ? pick(wrongPool) : item;
                 const options = [
                     { text: item.letters.join(' + '), correct: true },
                     { text: [...item.letters].reverse().join(' + '), correct: false },
                     { text: wrong.letters.join(' + '), correct: false },
                     { text: item.letters.slice(0, -1).join(' + ') || item.letters[0], correct: false }
                 ].filter((o, idx, a) => a.findIndex(x => x.text === o.text) === idx);
-                qs.push({ type: 'split', question: 'Which letters make this word?', prompt: item.word, options });
+
+                // If a malformed/duplicate option set occurs, keep the question valid.
+                if (!options.some(o => o.correct)) continue;
+                qs.push({
+                    type: 'split',
+                    question: 'Which letters make this join?',
+                    prompt: item.word,
+                    options
+                });
             }
 
-            qs.push({
-                type: 'la',
-                question: 'What two letters form the special shape لا?',
-                prompt: 'لا',
-                options: [
-                    { text: 'ل + ا', correct: true },
-                    { text: 'ا + ب', correct: false },
-                    { text: 'ن + ا', correct: false },
-                    { text: 'ك + ا', correct: false }
-                ]
-            });
-
-            for (let i = 0; i < 3; i++) {
+            // Shape questions use only letters occurring in the new dataset.
+            for (let i = 0; i < 3 && letterShapes.length; i++) {
                 const s = pick(letterShapes);
                 const forms = [
                     { key: 'Isolated', value: s.isolated },
@@ -1556,29 +1649,30 @@
                     type: 'shape',
                     question: `Which is the ${t.key.toLowerCase()} form of ${s.name}?`,
                     prompt: s.letter,
-                    options: forms.map(f => ({ text: f.value, correct: f.value === t.value && f.key === t.key }))
+                    options: forms.map(f => ({
+                        text: f.value,
+                        correct: f.value === t.value && f.key === t.key
+                    }))
                 });
             }
 
-            const wordQ = pick(joined.filter(w => w.letters.length >= 3));
-            qs.push({
-                type: 'count',
-                question: 'How many letters are joined in this word?',
-                prompt: wordQ.word,
-                options: [2, 3, 4, 5].map(n => ({ text: String(n), correct: n === wordQ.letters.length }))
-            });
+            // Count question also comes directly from the new dataset.
+            if (joined.length) {
+                const wordQ = pick(joined.filter(w => w.letters.length >= 3).length
+                    ? joined.filter(w => w.letters.length >= 3)
+                    : joined);
+                qs.push({
+                    type: 'count',
+                    question: 'How many letters are joined in this item?',
+                    prompt: wordQ.word,
+                    options: [1, 2, 3, 4, 5].map(n => ({
+                        text: String(n),
+                        correct: n === wordQ.letters.length
+                    }))
+                });
+            }
 
-            const dual = pick(['ا','د','ذ','ر','ز','و']);
-            qs.push({
-                type: 'dual',
-                question: 'Does this letter connect to the letter after it?',
-                prompt: dual,
-                options: [
-                    { text: 'No — it only joins to the letter before it', correct: true },
-                    { text: 'Yes — it connects on both sides', correct: false }
-                ]
-            });
-
+            // Always return up to 10 valid questions, preserving dataset alignment.
             return qs.sort(() => 0.5 - Math.random()).slice(0, 10);
         }
 
