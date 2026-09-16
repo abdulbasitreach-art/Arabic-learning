@@ -21,10 +21,10 @@ for(const [n,cells,questions,pages] of [[5,84,15,2],[6,54,12,2],[7,118,15,3],[8,
   let at=0;while(!html().includes('Quiz complete')){assert(at<20);const choices=[...html().matchAll(/onclick="qnAnswer\(\d+,\d+\)"[^>]*>([^<]*)<\/button>/g)].map(m=>m[1]);assert.equal(new Set(choices).size,choices.length);assert(choices.length>=2);ctx.qnAnswer(n,0);ctx.qnQuizStep(n,1);at++;}
   assert.equal(at,questions);assert(html().includes('Your answer:'));ctx.qnQuizStep(n,-1);assert(html().includes('qn-selected'));ctx.qnRestart(n);assert(html().includes('Question 1 /'));assert(html().includes('Choose an answer to continue.'));
 }
-for(const [n,total] of [[9,101],[10,48],[11,141],[12,69],[13,63]]){
+for(const [n,total] of [[9,101],[10,48],[11,42],[12,69],[13,16],[14,8],[15,4],[16,5],[17,17]]){
   const html=()=>node('foundation-'+n).innerHTML;
   ctx.openWorkbookLesson(n);assert(html().includes('Workbook instructions'));assert(html().includes(total+' reading entries'));
-  assert.equal((html().match(/class="qw-text-cell"/g)||[]).length,total);
+  assert.equal((html().match(/class="qw-text-cell"|class="qw-reading-line"/g)||[]).length,total);
   assert(!/<image|<img|<svg/.test(html()));
   ctx.qwMode(n,'practice');ctx.qwPracticeStep(n,1);assert(html().includes('2 / '+total));ctx.qwPracticeStep(n,-1);assert(html().includes('1 / '+total));
   ctx.qwMode(n,'quiz');ctx.qwQuizStep(n,1);assert(html().includes('1 / 12'));
@@ -38,6 +38,10 @@ assert(!source.includes('assets/qaida/'));
 const html=fs.readFileSync('index.html','utf8');assert.equal((html.match(/<!DOCTYPE html>/g)||[]).length,1);
 for(const m of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new vm.Script(m[1]);
 for(const m of html.matchAll(/<script src="([^"https:]+)"/g))assert(fs.existsSync(m[1]));
-console.log('PASS: lessons 1–13 syntax; full-alphabet standing vowels; new lessons 11–13 with 273 confirmed text entries, no pending cells, 69 repeated shaddah drills; unique quiz options, navigation, review/restart and shaddah expansion. No workbook images.');
+console.log('PASS: lessons 1–17 syntax; full-alphabet standing vowels; box and continuous-row layouts; final lessons through page 32; no pending source rows, 69 repeated shaddah drills; unique quiz options, navigation, review/restart and shaddah expansion. No workbook images.');
 
+
+
+
+ctx.openWorkbookLesson(17); assert(!node('foundation-17').innerHTML.includes('awaiting confirmation')); assert(!node('foundation-17').innerHTML.includes('Page 33'));
 

@@ -1357,12 +1357,73 @@
       instructions:{text:'Apply the doubled-consonant reading in these workbook words and phrases. Mīm and nūn with shaddah (مّ، نّ) require ghunnah—a steady nasal sound for two vowel counts. Do not apply this nasal hold automatically to every other doubled consonant. Read from the right and keep the short vowels, long vowels and stop marks distinct.'},
       sheets:[tashdeedOpening,tashdeed27,tashdeed28],entries:[tashdeedOpening,tashdeed27,tashdeed28].flatMap(p=>p.items).filter(x=>!x.pending)}
   ];
+  // Source pages 20 onward use continuous rows, not separate word boxes.
+  for(const page of [exercise20,exercise21,exercise22,exercise23,tashdeedOpening,tashdeed27,tashdeed28]){
+    let at=0;page.items=page.rowSizes.map(size=>{const ar=page.items.slice(at,at+size).map(x=>x.ar).join(' ');at+=size;return {ar,reading:splitWrittenLetters(ar)};});page.layout='lines';page.rowSizes=page.items.map(()=>1);
+  }
+  exercise24.items.splice(-2,2,{ar:exercise24.items.slice(-2).map(x=>x.ar).join(' '),reading:splitWrittenLetters(exercise24.items.slice(-2).map(x=>x.ar).join(' '))});
+  exercise24.layout='lines';
+  for(const n of [11,13]){const lesson=lessons.find(l=>l.n===n);lesson.entries=lesson.sheets.flatMap(p=>p.items);}
+  const lines=(page,rows)=>({...typedRows(page,rows.map(ar=>[ar])),layout:'lines'});
+  const final14a=lines(28,[
+    'مَرُّوْا رَبِّيْ مُدَّتْ حُقَّتْ خَفَّتْ',
+    'تَبَّتْ تَخَلَّتْ قَدَّمَتْ وَالصُّبْحِ',
+    'وَالشَّمْسِ وَالشَّفْعِ بِالصَّبْرِ ۝'
+  ]);
+  const final14b=lines(29,[
+    'وَالصَّيْفِ وَاللَّيْلِ وَالتِّيْنِ وَالزَّيْتُوْنِ',
+    'سِجِّيْلٍ سِجِّيْنٍ مُنْفَكِّيْنَ فَاِنَّ',
+    'الْجَنَّةَ لِحُبِّ الْخَيْرِ اِذَا السَّمَآءُ',
+    'اِنْشَقَّتْ مَا الطَّارِقُ النَّجْمُ الثَّاقِبُ ۝',
+    'مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝'
+  ]);
+  const final15=lines(29,[
+    'يَزَّكّٰى يَذَّكَّرُ الْمُدَّثِّرُ الْمُزَّمِّلُ',
+    'عِلِّيِّيْنَ ۝ عِلِّيُّوْنَ ۝ اِنَّ الَّذِيْنَ',
+    'اِلَّا الَّذِيْنَ مِنْ شَرِّ النَّفّٰثٰتِ',
+    'فَعَّالٌ لِمَا يُرِيْدُ ۝'
+  ]);
+  const final16=lines(30,[
+    'ضَآلًّا دَآبَّةٍ حَآجَّكَ حَآجُّوْكَ',
+    'اَضَآلُّوْنَ وَلَا الضَّآلِّيْنَ اَتُحَآجُّوْنِّيْ',
+    'وَلَا تَحٰٓضُّوْنَ وَالصّٰٓفّٰتِ جَآءَتْ',
+    'الصَّآخَّةُ ۝ فَاِذَا جَآءَتِ الطَّآمَّةُ',
+    'الْكُبْرٰى ۝'
+  ]);
+  const final17a=lines(31,[
+    'جَزَآءً لِلْمَلٰٓئِكَةِ اِنَّا اَعْطَيْنَا اَلَيْتَ',
+    'اَيَّامٍ ۝ خَيْرًا يَرَهٗ ۝ شَرًّا يَرَهٗ ۝',
+    'مِنْ فَانَّا يَوْمٍ فَمَنْ يَّعْمَلْ يَوْمَئِذٍ',
+    'قَصَبٍ ۝ النَّاسِ مِنْ رَّبِّكَ رَسُوْلٌ',
+    'مِنَ اللّٰهِ صُحُفًا مُّطَهَّرَةً صَفًّا ۝',
+    'لَا يَتَكَلَّمُوْنَ قَلْبٍ يَوْمَئِذٍ وَاجِفَةٌ',
+    'اَبْصَارُهَا سِرَاجًا وَهَّاجًا ۝ وَاَنْزَلْنَا',
+    'اَكَلًا لَّمًّا ۝ وَتُحِبُّوْنَ الْمَالَ حُبًّا'
+  ]);
+  const final17b=lines(32,[
+    'جَمًّا ۝ غُثَآءً اَحْوٰى ۝ مُعْتَلٍ اَنْتِجٍ',
+    'اِذَا تُتْلٰى نَارًا حَامِيَةً ۝ تُسْقٰى مِنْ',
+    'عَيْنٍ اٰنِيَةٍ ۝ مَنْ يَبْخَلْ لَيُنْبَذَنَّ',
+    'مَنْ يَعْدِلْ مِنْ بَيْنِ الصُّلْبِ لَنَسْفَعًا',
+    'بِالنَّاصِيَةِ نَوْمٍ مُّطَهَّرَةٍ ۝ بِاَيْدِيْ',
+    'سَفَرَةٍ كِرَامٍ بَرَرَةٍ هُمْ فِيْهَا لَكُمْ',
+    'دِيْنُكُمْ وَلِيَ دِيْنِ ۝ اِنَّ رَّبَّهُمْ بِهِمْ',
+    'تَرْمِيْهِمْ بِحِجَارَةٍ لَهُمْ مَّا يَشَآءُوْنَ',
+    'مِنْهُمُ اللّٰهُمَّ'
+  ]);
+  // Page 33 is intentionally omitted at the user's request.
+  const addFinal=(n,title,source,text,sheets)=>lessons.push({n,title,source,breakdown:true,instructions:{text},sheets,entries:sheets.flatMap(p=>p.items).filter(x=>!x.pending)});
+  addFinal(14,'Tashdeed with Sukoon',15,'Connect each doubled consonant to the following sākin letter without inserting another vowel. Preserve the complete phrases and pause at the written stop signs.',[final14a,final14b]);
+  addFinal(15,'Tashdeed with Tashdeed',16,'Read each shaddah as a sākin consonant followed by its vowelled counterpart. Keep both doubled consonants distinct when they occur together.',[final15]);
+  addFinal(16,'Tashdeed with Madd Letters',17,'Connect the madd letter to the doubled consonant after it. Practise the required length with your recitation teacher; keep madd signs and shaddah distinct.',[final16]);
+  addFinal(17,'Concluding Reading Rules',18,'Nūn sākin and tanween merge before ي ر م ل و ن, with ghunnah before ي ن م و and without ghunnah before ل ر. Before ب, apply iqlāb. Mīm sākin before ب has ikhfa shafawi; before م it merges with ghunnah. The lām of Allah is light after kasrah. Apply these rules in connected reading with your teacher.',[final17a,final17b]);
   const states=new Map(lessons.map(l=>[l.n,{mode:'learn',at:0,quizAt:0,answers:[],show:false}]));
   const get=n=>lessons.find(l=>l.n===Number(n));
   function cleanGlyph(ar){if(!/[ِٖ]/.test(ar)||[...ar.replace(/[\u064B-\u065F\u0670]/g,'')].length!==1)return ar;const mark=ar.includes('ٖ')?'ٖ':'ِ';return '<span class="qn-below qn-'+(mark==='ٖ'?'standing':'single')+'" role="img" aria-label="'+ar+'"><span aria-hidden="true">'+ar.replace(mark,'')+'</span></span>'; }
   function artwork(r,css=''){
     if(r.text)return '<p class="qw-instructions">'+r.text+'</p>';
     if(r.items){
+      if(r.layout==='lines')return '<div class="qw-reading-lines" dir="rtl" lang="ar">'+r.items.map(x=>x.pending?'<p class="qw-review-cell">'+x.pending+'</p>':'<p class="qw-reading-line">'+x.ar+'</p>').join('')+'</div>';
       const cell=x=>x.pending?'<div class="qw-review-cell" role="note"><strong>Needs confirmation</strong><p>'+x.pending+'</p></div>':'<button type="button" class="qw-text-cell" onclick="qwShowReading(\''+x.reading+'\')" aria-label="Show reading of '+x.ar+'"><span class="qw-ar" lang="ar">'+cleanGlyph(x.ar)+'</span></button>';
       if(r.rowSizes){let at=0;return r.rowSizes.map(count=>{const row=r.items.slice(at,at+count);at+=count;return '<div class="qw-text-grid" dir="rtl" style="--columns:'+count+';margin:0">'+row.map(cell).join('')+'</div>';}).join('');}
       return '<div class="qw-text-grid" dir="rtl" style="--columns:'+r.columns+'">'+r.items.map(cell).join('')+'</div>';
@@ -1393,6 +1454,7 @@
   window.openWorkbookLesson=n=>{if(!get(n)){oldOpen(n);if(Number(n)===8){const link=document.createElement('div');link.innerHTML=btn('Next: Combined Reading Exercise','openWorkbookLesson(9)');document.getElementById('foundation-8').append(link);}return;}openCourseMenu('foundations');render(Number(n));switchTab('foundation-'+n);document.getElementById('mobile-menu').classList.add('hidden');};
   function mount(){const style=document.createElement('style');style.textContent='.qw-text-grid{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));direction:rtl!important;gap:1px;background:#cbd5e1;margin:16px 0}.qw-text-cell{background:#fffef7;padding:16px 3px;min-height:104px;color:#075985;text-align:center}.qw-ar{font-family:Amiri,\"Scheherazade New\",serif;font-size:clamp(28px,4vw,46px);line-height:2.1;direction:rtl;unicode-bidi:isolate}.qw-text-cell:focus-visible{outline:3px solid #f59e0b}.qw-model{font-size:24px;text-align:center;font-weight:700;margin:20px}.qw-instructions{line-height:1.9}.qw-prompt{margin:20px auto;text-align:center;font-size:60px}.qw-header{color:#e0f2fe;margin-bottom:24px}.qw-header h2{font-size:36px;font-weight:800;color:white}.qw-header p:first-child{color:#f59e0b;font-size:13px;font-weight:700}.qw-header p:last-child{font-size:13px}.qw-panel{background:white;border:1px solid #e2e8f0;border-radius:20px;padding:20px;margin:20px 0}.qw-panel h3{font-size:20px;font-weight:700;margin-bottom:16px}.qw-art{display:block;width:100%;height:auto;max-width:640px;margin:16px auto}.qw-prompt{width:180px;max-height:200px}.qw-btn{background:white;border:1px solid #cbd5e1;border-radius:12px;padding:12px;min-height:44px;font-weight:600}.qw-btn:disabled{opacity:.4}.qw-btn:focus-visible{outline:3px solid #f59e0b}.qw-selected{background:#0369a1;color:white}.qw-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin:20px 0}.qw-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;direction:rtl}.qw-options .qw-art{max-width:130px}.qw-feedback{min-height:48px;margin-top:20px}';document.head.append(style);
     style.textContent+='.qw-prompt{width:100%;max-height:none;overflow-wrap:anywhere}.qw-model{font-family:Amiri,"Scheherazade New",serif;direction:rtl;unicode-bidi:plaintext;line-height:1.9}.qw-model:not(:has(*)){unicode-bidi:plaintext}.qw-review-cell{background:#fffbeb;color:#92400e;padding:14px;font-size:12px;min-height:100px;text-align:center}.qw-review-cell p{font-size:11px}.qw-options .qw-btn{unicode-bidi:plaintext;overflow-wrap:anywhere;line-height:1.9}';
+    style.textContent+='.qw-reading-lines{direction:rtl;text-align:right}.qw-reading-line{font-family:Amiri,"Scheherazade New",serif;font-size:clamp(28px,4vw,46px);line-height:2.2;padding:12px 0;margin:0;border:0;background:transparent;unicode-bidi:plaintext;overflow-wrap:normal}';
     for(const l of lessons){const section=document.createElement('section');section.id='foundation-'+l.n;section.className='tab-content';document.getElementById('foundation-'+(l.n-1)).after(section);for(const suffix of ['','-m']){const b=document.createElement('button');b.className='w-full text-left p-3 text-slate-300 hover:bg-brand-900 rounded-xl';b.textContent=String(l.n).padStart(2,'0')+' · '+l.title;b.onclick=()=>openWorkbookLesson(l.n);document.getElementById('qaida-menu'+suffix).append(b);}render(l.n);}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
