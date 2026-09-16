@@ -5,6 +5,7 @@
  host.insertAdjacentHTML('beforeend', markup);
 })();
 
+
         const practicalLessons = [
             {n:2, icon:'fa-id-card', title:'Introductions', ar:'التَّعَارُف', goal:'Give a complete personal and professional introduction and ask the same information respectfully.',
              phrases:[
@@ -1062,6 +1063,8 @@
     document.getElementById('foundation-'+n).innerHTML=`<header><p class="text-accent-500 font-bold">Arabic Foundations · Lesson ${n} · Workbook Lesson ${n+1}</p><h2 class="text-white text-4xl font-bold">${title[n]}</h2></header><div class="wb-box">${['learn','practice','quiz'].map(m=>button(m[0].toUpperCase()+m.slice(1),`workbookMode(${n},'${m}')`)).join('')}<div class="mt-5">${body}</div></div><div class="wb-actions">${button('Previous lesson',n===3?'switchChapter(2)':'openWorkbookLesson(3)')}${n===3?button('Next: Harakat','openWorkbookLesson(4)'):''}</div>`;
   }
   window.workbookMode=(n,m)=>{state[n].mode=m;state[n].index=0;render(n);};
+  window.qaidaCourseData=window.qaidaCourseData||[];
+  for(const n of [3,4])window.qaidaCourseData.push({n,title:title[n],instructions:n===3?'Name each letter separately. Follow the written madd signs with your teacher.':'Fatḥah gives a, kasrah gives i and ḍammah gives u. Keep these vowels short.',pages:[{label:'Workbook reading',columns:n===3?4:6,items:items[n].map(x=>({ar:x.ar,reading:x.answer}))}]});
   window.workbookSelect=(n,i)=>{document.getElementById('wb-detail-'+n).textContent=items[n][i].answer;};
   window.workbookAnswer=(n,i)=>{const s=state[n],item=items[n][s.index];const opts=n===3?[item.answer,items[n][(s.index+1)%items[n].length].answer,items[n][(s.index+4)%items[n].length].answer]:sounds.map(x=>item.answer.slice(0,-1)+x);opts.push(...opts.splice(0,s.index%3));s.answers[s.index]=opts[i];render(n);};
   window.workbookStep=(n,d)=>{const s=state[n];if(d>0&&s.mode==='quiz'&&s.answers[s.index]===undefined){document.getElementById('wb-detail-'+n).textContent='Choose an answer first.';return;}s.index=Math.max(0,Math.min(items[n].length-(s.mode==='practice'?1:0),s.index+d));render(n);};
@@ -1145,6 +1148,7 @@
   ];
   const byNumber=n=>lessons.find(l=>l.n===Number(n));
   const allItems=l=>l.pages.flatMap(p=>p.items.map(x=>({...x,page:p.label,concept:p.concept||null})));
+  window.qaidaCourseData.push(...lessons.map(l=>({...l,instructions:l.goal})));
   const state=new Map(lessons.map(l=>[l.n,{mode:'learn',exercise:0,reveal:false,quizAt:0,answers:[],questions:[]} ]));
   function glyph(ar){
     // Separate kasrah/kasratān/standing kasrah from the shaped letter bowl.
@@ -1417,6 +1421,7 @@
   addFinal(15,'Tashdeed with Tashdeed',16,'Read each shaddah as a sākin consonant followed by its vowelled counterpart. Keep both doubled consonants distinct when they occur together.',[final15]);
   addFinal(16,'Tashdeed with Madd Letters',17,'Connect the madd letter to the doubled consonant after it. Practise the required length with your recitation teacher; keep madd signs and shaddah distinct.',[final16]);
   addFinal(17,'Concluding Reading Rules',18,'Nūn sākin and tanween merge before ي ر م ل و ن, with ghunnah before ي ن م و and without ghunnah before ل ر. Before ب, apply iqlāb. Mīm sākin before ب has ikhfa shafawi; before م it merges with ghunnah. The lām of Allah is light after kasrah. Apply these rules in connected reading with your teacher.',[final17a,final17b]);
+  window.qaidaCourseData.push(...lessons.map(l=>({...l,instructions:l.instructions.text,pages:l.sheets})));
   const states=new Map(lessons.map(l=>[l.n,{mode:'learn',at:0,quizAt:0,answers:[],show:false}]));
   const get=n=>lessons.find(l=>l.n===Number(n));
   function cleanGlyph(ar){if(!/[ِٖ]/.test(ar)||[...ar.replace(/[\u064B-\u065F\u0670]/g,'')].length!==1)return ar;const mark=ar.includes('ٖ')?'ٖ':'ِ';return '<span class="qn-below qn-'+(mark==='ٖ'?'standing':'single')+'" role="img" aria-label="'+ar+'"><span aria-hidden="true">'+ar.replace(mark,'')+'</span></span>'; }
@@ -1460,3 +1465,121 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();
 
+
+// Shared Qaida learning journey. Workbook data above remains authoritative.
+(() => {
+  const stages=[
+    {title:'Letters & joining',range:[1,3],description:'Recognise letters and their joined forms.'},
+    {title:'Short vowels & tanween',range:[4,6],description:'Give each letter its short vowel.'},
+    {title:'Long vowels & leen',range:[7,9],description:'Distinguish short, long and soft sounds.'},
+    {title:'Sukoon',range:[10,11],description:'Connect a silent-vowel consonant smoothly.'},
+    {title:'Shaddah',range:[12,16],description:'Read doubled consonants with confidence.'},
+    {title:'Combined rules',range:[17,17],description:'Bring your reading skills together.'}
+  ];
+  const data=window.qaidaCourseData||[];
+  const names={ا:'Alif',أ:'Hamzah',إ:'Hamzah',آ:'Alif maddah',ء:'Hamzah',ؤ:'Hamzah',ئ:'Hamzah',ب:'Bāʾ',ت:'Tāʾ',ث:'Thāʾ',ج:'Jīm',ح:'Ḥāʾ',خ:'Khāʾ',د:'Dāl',ذ:'Dhāl',ر:'Rāʾ',ز:'Zāy',س:'Sīn',ش:'Shīn',ص:'Ṣād',ض:'Ḍād',ط:'Ṭāʾ',ظ:'Ẓāʾ',ع:'ʿAyn',غ:'Ghayn',ف:'Fāʾ',ق:'Qāf',ك:'Kāf',ل:'Lām',م:'Mīm',ن:'Nūn',ه:'Hāʾ',و:'Wāw',ي:'Yāʾ',ى:'Alif maqṣūrah',ة:'Tāʾ marbūṭah'};
+  const roman={ا:'ʾ',أ:'ʾ',إ:'ʾ',ء:'ʾ',ؤ:'ʾ',ئ:'ʾ',ب:'b',ت:'t',ث:'th',ج:'j',ح:'ḥ',خ:'kh',د:'d',ذ:'dh',ر:'r',ز:'z',س:'s',ش:'sh',ص:'ṣ',ض:'ḍ',ط:'ṭ',ظ:'ẓ',ع:'ʿ',غ:'gh',ف:'f',ق:'q',ك:'k',ل:'l',م:'m',ن:'n',ه:'h',و:'w',ي:'y',ة:'t'};
+  const vowels={'َ':'a','ِ':'i','ُ':'u','ً':'an','ٍ':'in','ٌ':'un','ٰ':'ā','ٖ':'ī','ٗ':'ū'};
+  const glyph=ar=>ar.split(' ').map(word=>{const parts=units(word),mark=(word.match(/[ٍِٖ]/)||[])[0];if(!mark||!(parts.length===1||(parts.length===2&&parts[1]==='ا'&&mark==='ٍ')))return esc(word);return '<span class="qn-below qn-'+(mark==='ٍ'?'double':mark==='ٖ'?'standing':'single')+'" role="img" aria-label="'+esc(word)+'"><span aria-hidden="true">'+esc(word.replace(mark,''))+'</span></span>';}).join(' ');
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const units=ar=>ar.match(/[\u0621-\u064A][\u064B-\u065F\u0670]*/g)||[];
+  function breakdown(ar){return ar.split(/\s+/).map(word=>units(word).flatMap(u=>u.includes('ّ')?[u[0]+'ْ',u.replace('ّ','')]:[u]).join(' + ')).join(' | ');}
+  function decode(ar){
+    return ar.split(/\s+/).map(word=>{
+      const list=units(word);let result='';
+      for(let i=0;i<list.length;i++){
+        const u=list[i],base=u[0],marks=u.slice(1),next=list[i+1];
+        if(base==='آ'){result+='ʾā';continue;}
+        let consonant=roman[base]||'',v=Object.keys(vowels).find(mark=>marks.includes(mark)),sound=v?vowels[v]:'';
+        if(base==='ى'&&!v){result+='ā';continue;}
+        if(marks.includes('ّ'))consonant+=consonant;
+        if(next&&((v==='َ'&&/^[اى][ْ]*$/.test(next))||(v==='ِ'&&/^ي[ْ]*$/.test(next))||(v==='ُ'&&/^و[ْ]*$/.test(next)))){sound={a:'ā',i:'ī',u:'ū'}[sound];i++;}
+        if(v==='ً'&&next==='ا')i++;
+        result+=consonant+sound;
+      }
+      return result;
+    }).filter(Boolean).join(' ');
+  }
+  function explain(item,n){
+    const ar=item.ar,notes=[];
+    if(n<=3)notes.push(n===3?'Read these as separate letter names, rather than as a word.':'Name each letter from right to left. Joining changes its shape, not its identity.');
+    if(/[َُِ]/.test(ar))notes.push('Zabar / fatḥah = a; zer / kasrah = i; pesh / ḍammah = u. Keep short vowels short.');
+    if(/[ًٌٍ]/.test(ar))notes.push('Double marks give an, in or un in the written reading. A support alif after fatḥatān does not add ā.');
+    if(/[ٰٖٗ]/.test(ar))notes.push('Standing zabar, standing zer and inverted pesh represent ā, ī and ū.');
+    if(ar.includes('ْ'))notes.push('Sukoon means no vowel of its own. Connect this consonant to the vowel before it.');
+    if(ar.includes('ّ'))notes.push('Shaddah doubles the consonant: first sākin, then vowelled. Do not insert a vowel between them.');
+    if(/[من][\u064B-\u065F]*ّ/.test(ar))notes.push('A doubled mīm or nūn has ghunnah for two vowel counts.');
+    if(item.rule)notes.push(item.rule);
+    if(!notes.length)notes.push('Follow the letters and marks from right to left.');
+    return [...new Set(notes)];
+  }
+  let saved={version:1,last:1,lessons:{},review:[]},storageOK=true;
+  try{const parsed=JSON.parse(localStorage.getItem('arabic-qaida-journey-v1'));if(parsed&&parsed.version===1){saved.last=Number(parsed.last)||1;saved.lessons=parsed.lessons&&typeof parsed.lessons==='object'?parsed.lessons:{};saved.review=Array.isArray(parsed.review)?parsed.review.filter(x=>Number.isInteger(x.n)&&Number.isInteger(x.i)):[];}}catch{storageOK=false;}
+  const persist=()=>{try{localStorage.setItem('arabic-qaida-journey-v1',JSON.stringify(saved));}catch{storageOK=false;}};
+  let active=1,mode='understand',at=0,revealed=false,quizAt=0,answers=[],attempts=[],feedback='',reviewOnly=false;
+  const get=n=>data.find(l=>l.n===Number(n));
+  const entries=l=>l.pages.flatMap(p=>p.items.filter(x=>x&&!x.pending).map(x=>({...x,page:p.label})));
+  const progress=n=>saved.lessons[n]||{};
+  const status=n=>progress(n).completed?'Completed':progress(n).started?'In progress':'Not started';
+  function model(item,n){if(n<=3)return units(item.ar).map(u=>names[u[0]]||u[0]).join(' · ');return item.reading&&!/[\u0600-\u06FF]/.test(item.reading)?item.reading:decode(item.ar);}
+  const button=(label,action,extra='')=>`<button type="button" class="qj-button ${extra}" ${extra.includes('qj-disabled')?'disabled':''} onclick="${action}">${label}</button>`;
+  function detail(item,n){return `<div class="qj-detail"><p class="qj-label">${n<=3?'Letter names':'Written reading'}</p><p class="qj-ar" dir="rtl" lang="ar">${glyph(item.ar)}</p><p class="qj-roman" dir="ltr">${esc(model(item,n))}</p>${explain(item,n).map(note=>`<p>${esc(note)}</p>`).join('')}${n>3&&units(item.ar).length>1?`<details><summary>See letter breakdown</summary><p class="qj-breakdown" dir="rtl" lang="ar">${esc(breakdown(item.ar))}</p></details>`:''}${n>3?'<p class="qj-muted">This is a written reading aid. Connected recitation and stopping can change the sound; follow your teacher for tajweed and madd counts.</p>':''}</div>`;}
+  function showDetail(i){const l=get(active),item=entries(l)[i];if(!item)return;const dlg=document.getElementById('qn-dialog'),body=document.getElementById('qn-dialog-body');body.className='';body.dir='ltr';body.innerHTML=detail(item,active)+button('Practise this again',`qaidaJourney.remember(${i})`);dlg.showModal();}
+  function remember(i){if(!saved.review.some(x=>x.n===active&&x.i===i)){saved.review.push({n:active,i});persist();}sidebar();const body=document.getElementById('qn-dialog-body');if(body)body.innerHTML=detail(entries(get(active))[i],active)+'<p role="status">Saved to your revision list.</p>';}
+  function sidebar(){
+    for(const suffix of ['','-m']){
+      const host=document.getElementById('qj-menu'+suffix);if(!host)continue;
+      host.innerHTML=button('Learning overview','qaidaJourney.home()','qj-overview')+stages.map((s,index)=>`<details class="qj-stage" ${active>=s.range[0]&&active<=s.range[1]?'open':''}><summary><span>${index+1}. ${s.title}</span><small>${Array.from({length:s.range[1]-s.range[0]+1},(_,i)=>progress(s.range[0]+i).completed).filter(Boolean).length}/${s.range[1]-s.range[0]+1}</small></summary>${data.filter(l=>l.n>=s.range[0]&&l.n<=s.range[1]).map(l=>`<button type="button" class="qj-lesson ${l.n===active?'qj-current':''}" ${l.n===active?'aria-current="step"':''} onclick="qaidaJourney.open(${l.n})"><span>${String(l.n).padStart(2,'0')} · ${esc(l.title)}</span><small>${status(l.n)}</small></button>`).join('')}</details>`).join('');
+    }
+  }
+  function shell(body){const host=document.getElementById('qaida-journey');host.innerHTML=body;sidebar();openCourseMenu('foundations');switchTab('qaida-journey');document.getElementById('mobile-menu').classList.add('hidden');}
+  function home(){const complete=data.filter(l=>progress(l.n).completed).length,l=get(saved.last)||get(1);shell(`<header class="qj-header"><p class="qj-eyebrow">Qaida · Arabic Reading</p><h2>Your reading journey</h2><p>One concept at a time. Learn, practise, and return whenever you need.</p></header><section class="qj-card qj-resume"><div><p class="qj-label">Your next step</p><h3>${esc(l.title)}</h3><p>Lesson ${l.n} · ${status(l.n)}</p></div>${button(progress(l.n).started?'Continue learning':'Start learning',`qaidaJourney.open(${l.n})`,'qj-primary')}</section><section class="qj-card"><h3>${complete} of ${data.length} lessons completed</h3><progress max="${data.length}" value="${complete}" aria-label="Completed lessons"></progress><p class="qj-muted">${storageOK?'Progress is saved on this device.':'Progress is available for this session; browser storage is unavailable.'}</p></section><div class="qj-stage-cards">${stages.map(s=>`<section class="qj-card"><p class="qj-label">Lessons ${s.range.join('–')}</p><h3>${s.title}</h3><p>${s.description}</p>${button('Explore lessons',`qaidaJourney.open(${s.range[0]})`)}</section>`).join('')}</div>${saved.review.length?`<section class="qj-card"><h3>Practise again</h3><p>Items you saved or found difficult. No timer—take your time.</p><div class="qj-revision">${saved.review.map(x=>{const item=get(x.n)&&entries(get(x.n))[x.i];return item?button(`<span lang="ar" dir="rtl">${esc(item.ar)}</span><small>Lesson ${x.n}</small>`,`qaidaJourney.revise(${x.n},${x.i})`):'';}).join('')}</div></section>`:''}`);}
+  function open(n){if(!get(n))return;active=Number(n);mode='understand';at=Number(progress(n).at)||0;at=Math.min(at,entries(get(n)).length-1);revealed=false;quizAt=0;answers=[];attempts=[];reviewOnly=false;feedback='';saved.last=active;saved.lessons[n]={...progress(n),started:true};persist();render();}
+  function sheet(l){let offset=0;return l.pages.map(p=>{const start=offset;offset+=p.items.filter(x=>x&&!x.pending).length;let i=start;const lines=p.layout==='lines';let pos=0;const sizes=p.rowSizes||p.rows?.map(r=>r.length)||null;const cell=x=>{if(!x)return '<span></span>';if(x.pending)return `<p>${esc(x.pending)}</p>`;const id=i++;if(lines)return `<p class="qj-line" dir="rtl" lang="ar">${x.ar.split(/\s+/).map(word=>`<button type="button" onclick="qaidaJourney.word(${id},'${esc(word)}')" aria-label="Explain ${esc(word)}">${esc(word)}</button>`).join(' ')}</p>`;return `<button type="button" class="qj-cell" style="${active===3&&(id===4||id===11)?'grid-column:span 2':""}" onclick="qaidaJourney.detail(${id})" aria-label="Explain ${esc(x.ar)}"><span lang="ar" dir="rtl">${glyph(x.ar)}</span></button>`;};const grid=row=>`<div class="qj-grid" dir="rtl" style="--qj-columns:${row.length}">${row.map(cell).join('')}</div>`;return `<section class="qj-card"><h3>${esc(p.label)}</h3>${lines?p.items.map(cell).join(''):sizes?sizes.map(size=>{const row=p.items.slice(pos,pos+size);pos+=size;return grid(row);}).join(''):`<div class="qj-grid" dir="rtl" style="--qj-columns:${p.columns||5}">${p.items.map(cell).join('')}</div>`}</section>`;}).join('');}
+  function word(i,ar){const original=entries(get(active))[i];const item={...original,ar,reading:undefined};const body=document.getElementById('qn-dialog-body');body.className='';body.dir='ltr';body.innerHTML=detail(item,active)+button('Explain complete row',`qaidaJourney.detail(${i})`)+button('Save row for revision',`qaidaJourney.remember(${i})`);document.getElementById('qn-dialog').showModal();}
+  function shapes(){
+    if(typeof letterShapes==='undefined')return '';
+    return `<section class="qj-card"><h3>Letter shapes · Alif to Yāʾ</h3><p>The letter stays the same while its shape changes with its position. Read the form labels from the right.</p><div class="qj-shapes">${letterShapes.map(s=>`<article><h4>${esc(s.name)}</h4><div class="qj-grid" dir="rtl" style="--qj-columns:4">${[['Isolated',s.isolated],['Initial',s.initial],['Medial',s.medial],['Final',s.final]].map(([label,ar])=>`<div class="qj-cell"><small>${label}</small><span lang="ar" dir="rtl">${esc(ar)}</span></div>`).join('')}</div><p class="qj-muted">${s.connecting?'Joins to the following letter.':'Does not join to the following letter; initial and medial forms cannot create a following join.'}</p></article>`).join('')}</div></section>`;
+  }
+  function question(q){const all=entries(get(active)),index=Math.floor(q*all.length/Math.min(10,all.length)),correct=model(all[index],active),pool=[...new Set(all.map(x=>model(x,active)))].filter(x=>x!==correct);const choices=[correct,...pool.slice(q%Math.max(1,pool.length)).concat(pool).slice(0,2)];const unique=[...new Set(choices)],shift=q%unique.length;return {index,correct,choices:unique.slice(shift).concat(unique.slice(0,shift))};}
+  function render(){const l=get(active),all=entries(l),total=Math.min(10,all.length),stage=stages.find(s=>active>=s.range[0]&&active<=s.range[1]);let body='';
+    if(mode==='understand')body=`<section class="qj-card"><p class="qj-label">What you will practise</p><h3>${esc(l.title)}</h3><p>${esc(l.instructions)}</p>${(l.concepts||[]).map(c=>`<details><summary>${esc(c.title)}</summary><p>${esc(c.explanation)}</p><p>${esc((c.examples||[]).join(' · '))}</p></details>`).join('')}</section><section class="qj-card"><h3>Try one example</h3>${detail(all[0],active)}${button('Open reading sheet',"qaidaJourney.mode('sheet')",'qj-primary')}</section>`;
+    if(mode==='sheet')body=`<p class="qj-sheet-tip">Read from the right. Select any letter or word for its reading and explanation.</p>`+(active===2?shapes():'')+sheet(l)+button('Practise one item at a time',"qaidaJourney.mode('practice')",'qj-primary');
+    if(mode==='practice')body=`<section class="qj-card"><p class="qj-label">${reviewOnly?'Revision':'Practice'} · ${at+1} / ${all.length}</p><h3>Read first, then check</h3><p class="qj-ar qj-prompt" dir="rtl" lang="ar" data-ar="${esc(all[at].ar)}">${glyph(all[at].ar)}</p>${revealed?detail(all[at],active):'<p class="qj-muted">Take your time. Follow each written mark.</p>'}${button(revealed?'Hide explanation':'Hint & explanation','qaidaJourney.reveal()')}${button('Save for revision',`qaidaJourney.rememberPractice(${at})`)}<p role="status">${esc(feedback)}</p><div class="qj-actions">${button('Previous','qaidaJourney.step(-1)',at===0?'qj-disabled':'')}${button(at===all.length-1?'Go to quiz':'Next',at===all.length-1?"qaidaJourney.mode('quiz')":'qaidaJourney.step(1)','qj-primary')}</div>${reviewOnly?button('I can read this now',`qaidaJourney.mastered(${at})`):''}</section>`;
+    if(mode==='quiz'){
+      if(quizAt>=total){const score=attempts.filter(Boolean).length;body=`<section class="qj-card"><h3>You finished this check</h3><p>${score} / ${total} correct on the first attempt.</p><p>${score===total?'You recognised all the readings in this check.':'You corrected your readings as you went. Revisit the saved items to build confidence.'}</p>${button('Review previous question','qaidaJourney.quizStep(-1)')}${button('Try again','qaidaJourney.restart()')}${score===total?button('Complete lesson','qaidaJourney.complete()','qj-primary'):button('Revise difficult items','qaidaJourney.home()','qj-primary')}</section>`;}
+      else{const q=question(quizAt);body=`<section class="qj-card"><p class="qj-label">Check your reading · ${quizAt+1} / ${total}</p><h3>${active<=3?'Choose the matching letter names':'Choose the matching written reading'}</h3><p class="qj-ar qj-prompt" dir="rtl" lang="ar" data-ar="${esc(all[q.index].ar)}">${glyph(all[q.index].ar)}</p><div class="qj-options">${q.choices.map((choice,i)=>button(esc(choice),`qaidaJourney.answer(${i})`,answers[quizAt]===choice?'qj-selected':'')).join('')}</div><p class="qj-feedback" aria-live="polite">${esc(feedback||'Choose an answer. You can try again.')}</p>${button('Show a hint',`qaidaJourney.detail(${q.index})`)}<div class="qj-actions">${button('Previous','qaidaJourney.quizStep(-1)',quizAt===0?'qj-disabled':'')}${button(quizAt===total-1?'Finish check':'Next','qaidaJourney.quizStep(1)',answers[quizAt]===q.correct?'qj-primary':'qj-disabled')}</div></section>`;}
+    }
+    shell(`<header class="qj-header">${button('Learning overview','qaidaJourney.home()')}<p class="qj-eyebrow">${esc(stage.title)} · Lesson ${active} / 17</p><h2>${esc(l.title)}</h2><p>${status(active)}</p></header><nav class="qj-flow" aria-label="Lesson steps">${[['understand','1 · Samjho'],['sheet','2 · Reading sheet'],['practice','3 · Practice'],['quiz','4 · Quiz']].map(([m,label])=>button(label,`qaidaJourney.mode('${m}')`,mode===m?'qj-selected':'')).join('')}</nav>${body}<nav class="qj-actions" aria-label="Lesson navigation">${active>1?button('Previous lesson',`qaidaJourney.open(${active-1})`):'<span></span>'}${active<17?button('Next lesson',`qaidaJourney.open(${active+1})`):button('Back to overview','qaidaJourney.home()')}</nav>`);
+  }
+  window.qaidaJourney={stages,data,decode,breakdown,model,explain,status,home,open,detail:showDetail,word,remember,
+    mode(m){if(!['understand','sheet','practice','quiz'].includes(m))return;mode=m;feedback='';revealed=false;render();},
+    reveal(){revealed=!revealed;render();},
+    step(d){at=Math.max(0,Math.min(entries(get(active)).length-1,at+d));revealed=false;feedback='';saved.lessons[active]={...progress(active),at};persist();render();},
+    rememberPractice(i){if(!saved.review.some(x=>x.n===active&&x.i===i))saved.review.push({n:active,i});persist();feedback='Saved to your revision list.';render();},
+    revise(n,i){open(n);at=i;reviewOnly=true;mode='practice';render();},
+    mastered(i){saved.review=saved.review.filter(x=>x.n!==active||x.i!==i);persist();feedback='Removed from your revision list. You can save it again anytime.';render();},
+    answer(i){const q=question(quizAt),choice=q.choices[i];if(choice===undefined)return;answers[quizAt]=choice;const correct=choice===q.correct;if(attempts[quizAt]===undefined)attempts[quizAt]=correct;if(!correct&&!saved.review.some(x=>x.n===active&&x.i===q.index)){saved.review.push({n:active,i:q.index});persist();}feedback=correct?'Correct. You matched the written reading.':'Check the vowel marks and consonants. Use the hint, then try again.';render();},
+    quizStep(d){if(d>0&&answers[quizAt]!==question(quizAt).correct)return;quizAt=Math.max(0,Math.min(Math.min(10,entries(get(active)).length),quizAt+d));feedback='';render();},
+    restart(){quizAt=0;answers=[];attempts=[];feedback='';render();},
+    complete(){const total=Math.min(10,entries(get(active)).length);if(quizAt<total||attempts.filter(Boolean).length!==total)return;saved.lessons[active]={...progress(active),completed:true};saved.last=Math.min(17,active+1);persist();shell(`<header class="qj-header"><h2>Lesson ${active} completed</h2><p>You completed the reading check for ${esc(get(active).title)}.</p></header><section class="qj-card">${active<17?button('Continue to the next lesson',`qaidaJourney.open(${active+1})`,'qj-primary'):button('Review your journey','qaidaJourney.home()','qj-primary')}${button('Return to this lesson',`qaidaJourney.open(${active})`)}</section>`);}
+  };
+  function mount(){
+    if(typeof arabicAlphabet==='undefined'||typeof jointPages==='undefined')return;
+    data.unshift({n:1,title:'Arabic Alphabet',instructions:'Recognise the letter names from Alif to Yāʾ. Arabic reading begins on the right.',pages:[{label:'Alif to Yāʾ',columns:7,items:arabicAlphabet.map(x=>({ar:x.ar,reading:x.name}))}]},{n:2,title:'Joined Letters',instructions:'Recognise each letter in a join. Read the letter names separately. Repeated letters are deliberately retained.',pages:jointPages.map(p=>({label:p.title,columns:5,rowSizes:p.rows.map(r=>r.length),items:p.rows.flat().map(x=>x?{ar:x.word,reading:x.read}:null)}))});
+    data.sort((a,b)=>a.n-b.n);
+    const host=document.createElement('section');host.id='qaida-journey';host.className='tab-content';document.getElementById('alphabets').before(host);
+    for(const suffix of ['','-m']){
+      const menu=document.getElementById('qaida-menu'+suffix);const legacy=document.createElement('div');legacy.hidden=true;while(menu.firstChild)legacy.append(menu.firstChild);menu.append(legacy);const nav=document.createElement('nav');nav.id='qj-menu'+suffix;nav.setAttribute('aria-label','Qaida stages');menu.append(nav);
+      const root=document.getElementById('foundations-root'+suffix);const label=root.querySelector('.text-left');if(label)label.innerHTML='<span class="block text-sm">Qaida · Arabic Reading</span><span class="arabic-text block text-xs font-normal">القاعدة · تعلّم القراءة</span>';root.onclick=()=>home();
+    }
+    const oldOpen=window.openWorkbookLesson;window.openWorkbookLesson=n=>get(n)?open(n):oldOpen(n);
+    window.switchChapter=n=>open(n);
+    // Keep existing direct lesson links usable through the shared interface.
+    const oldSwitch=window.switchTab;window.switchTab=id=>{if(id==='alphabets')return open(1);if(/^ch2-/.test(id)){open(2);if(id==='ch2-learn')window.qaidaJourney.mode('sheet');if(id==='ch2-quiz')window.qaidaJourney.mode('quiz');return;}return oldSwitch(id);};
+    const style=document.createElement('style');style.textContent=`
+      .qj-header{color:#dbeafe;margin:16px 0 24px}.qj-header h2{font-size:clamp(28px,4vw,42px);font-weight:800;margin:12px 0}.qj-header .qj-button{margin-bottom:12px}.qj-eyebrow{color:#fbbf24;font-size:13px;margin:10px 0}.qj-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:clamp(18px,3vw,28px);margin:18px 0;color:#1e293b}.qj-card h3{font-size:22px;font-weight:750;margin:8px 0 12px}.qj-card p{line-height:1.8}.qj-label{color:#475569;font-size:12px;font-weight:700;letter-spacing:.04em}.qj-muted{color:#64748b;font-size:13px;margin:12px 0}.qj-button{min-height:44px;padding:11px 17px;background:#fff;border:1px solid #cbd5e1;border-radius:12px;color:#0f172a;font-weight:600;margin:5px 5px 5px 0}.qj-button:hover{background:#eff6ff}.qj-primary,.qj-selected{background:#075985;color:#fff;border-color:#075985}.qj-primary:hover,.qj-selected:hover{background:#0c4a6e}.qj-disabled{opacity:.45;pointer-events:none}.qj-button:focus-visible,.qj-cell:focus-visible,.qj-line button:focus-visible,summary:focus-visible,.qj-lesson:focus-visible{outline:3px solid #f59e0b;outline-offset:3px}.qj-actions,.qj-flow,.qj-resume{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}.qj-flow{justify-content:flex-start}.qj-stage-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:16px}.qj-stage-cards .qj-card{margin:0}.qj-stage{margin:10px 0;color:#cbd5e1}.qj-stage summary{cursor:pointer;min-height:44px;padding:10px 6px;font-weight:700;font-size:13px}.qj-stage summary small{float:right;color:#93c5fd}.qj-lesson{display:block;width:100%;text-align:left;padding:12px;border-radius:12px;color:#cbd5e1;margin:4px 0;font-size:13px;min-height:48px}.qj-lesson small{display:block;color:#94a3b8;font-size:11px;margin-top:4px}.qj-lesson:hover{background:#0c4a6e}.qj-current{background:#075985;color:#fff}.qj-current small{color:#dbeafe}.qj-overview{width:100%;text-align:left}.qj-grid{display:grid;grid-template-columns:repeat(var(--qj-columns),minmax(0,1fr));direction:rtl;gap:1px;background:#cbd5e1}.qj-cell{background:#fffef7;min-height:110px;padding:10px 3px;color:#075985;text-align:center}.qj-cell span,.qj-ar,.qj-line,.qj-breakdown,.qj-revision span{font-family:Amiri,'Scheherazade New',serif;line-height:2.2}.qj-cell span{font-size:clamp(28px,4vw,46px)}.qj-shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:16px;direction:rtl}.qj-shapes article{direction:ltr}.qj-shapes h4{font-weight:700;margin:12px 0}.qj-shapes .qj-cell span,.qj-shapes small{display:block}.qj-ar{font-size:clamp(38px,5vw,58px);text-align:center;margin:14px 0;overflow-wrap:normal}.qj-prompt{padding:12px 0}.qj-line{font-size:clamp(28px,4vw,46px);direction:rtl;text-align:right;margin:0;padding:12px 0;border:0;background:transparent}.qj-line button{display:inline;padding:0;background:transparent;border:0;font:inherit;line-height:inherit;color:#075985;cursor:pointer}.qj-line button:hover{color:#9d174d;text-decoration:underline;text-underline-offset:8px}.qj-roman{font-size:24px;font-weight:700;text-align:center;overflow-wrap:anywhere;margin:12px 0}.qj-detail p{line-height:1.85}.qj-detail details,.qj-card details{margin:14px 0;padding:12px;background:#f8fafc;border-radius:12px}.qj-detail summary,.qj-card summary{cursor:pointer;min-height:44px;font-weight:600}.qj-breakdown{font-size:28px;overflow-wrap:anywhere}.qj-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px}.qj-options .qj-button{overflow-wrap:anywhere;line-height:1.8}.qj-feedback{min-height:54px;margin:14px 0}.qj-sheet-tip{color:#dbeafe;line-height:1.8}.qj-card progress{width:100%;height:12px;accent-color:#075985}.qj-revision{display:flex;flex-wrap:wrap;gap:10px}.qj-revision span{display:block;font-size:30px}.qj-revision small{display:block}.qn-dialog{max-height:90dvh;overflow-y:auto}@media(max-width:480px){.qj-cell{min-height:96px}.qj-cell span{font-size:27px}.qj-flow .qj-button{flex:1 1 40%;font-size:13px}.qj-card{padding:16px}.qj-line{font-size:30px}}@media(prefers-reduced-motion:reduce){#qaida-journey *{animation:none!important;transition:none!important}}`;
+    document.head.append(style);active=get(saved.last)?saved.last:1;home();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();

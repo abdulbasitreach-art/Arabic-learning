@@ -8,6 +8,14 @@ Open this folder in Cursor, then open `index.html` in a browser. Keep `qaida-les
 
 Internet access is needed for Google Fonts, Tailwind CSS and Font Awesome. No build or installation is required.
 
+## Qaida learning journey
+
+The Qaida has 17 lessons grouped into six stages. Its overview offers a resume button, lesson progress and a revision list. Every lesson follows Understand → Reading Sheet → Practice → Quiz. Workbook boxes remain boxes; continuous passages remain unboxed Arabic rows. Select a cell or a word in a row to see the written reading, an explanation and, where useful, a letter breakdown. Lesson 2 also retains the alphabet's positional shapes from Alif to Yāʾ.
+
+Progress and revision items are stored in this browser on this device; they do not synchronise across devices. A perfect first-attempt reading check enables lesson completion, while mistaken items are saved for revision. Lessons remain freely accessible. English readings are written decoding aids, not recordings or complete connected tajweed models. Audio and workbook images are omitted. Page 33 is skipped as requested. Practical Arabic stays in its separate course section.
+
+Run `node verify-qaida.cjs` and `node verify-journey.cjs` to check lesson data and shared learning interactions. These checks exercise app startup and learning flows using a simulated document; they do not replace a visual browser review.
+
 ## Upload to GitHub
 
 1. Create an empty repository on GitHub.
