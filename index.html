@@ -1049,7 +1049,7 @@
         // Tab Switching Logic
         function switchTab(tabId) {
             const foundationTabs = ['alphabets', 'ch2-intro', 'ch2-learn', 'ch2-shapes', 'ch2-identify', 'ch2-quiz', 'foundation-3', 'foundation-4'];
-            if (foundationTabs.includes(tabId)) lastFoundationTab = tabId;
+            if (foundationTabs.includes(tabId) || /^foundation-\d+$/.test(tabId)) lastFoundationTab = tabId;
             else lastPracticalTab = tabId;
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -1906,5 +1906,6 @@
         }
     </script>
     <script src="foundation-lessons.js"></script>
+    <script src="qaida-next-lessons.js"></script>
 </body>
 </html>
