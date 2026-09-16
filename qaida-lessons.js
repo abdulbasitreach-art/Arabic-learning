@@ -1245,6 +1245,98 @@
   function sukoon(list) {const short=['َ','ِ','ُ'],names=['a','i','u'];return list.flatMap(([letter,roman])=>short.map((v,i)=>({ar:'ا'+v+letter+'ْ',reading:names[i]+roman}))); }
   const closed=sukoon([['ب','b'],['ت','t'],['ث','th'],['ج','j'],['ح','ḥ'],['خ','kh'],['د','d'],['ذ','dh'],['ر','r'],['ز','z'],['س','s'],['ش','sh'],['ص','ṣ'],['ض','ḍ'],['ط','ṭ'],['ظ','ẓ']]);
   const sheet=(page,items,columns,rowSizes)=>({page,items,columns,rowSizes,label:'Page '+page});
+  // New workbook entries: no guessed text is placed in unclear cells.
+  const pending = label => ({ar:'',reading:'',pending:label});
+  function splitWrittenLetters(ar){
+    return ar.split(/\s+/).map(word=>{
+      const units=word.match(/[\u0621-\u064A][\u064B-\u065F\u0670]*/g)||[];
+      return units.flatMap(unit=>unit.includes('ّ')?[unit[0]+'ْ',unit.replace('ّ','')]:[unit]).join(' + ');
+    }).join(' | ');
+  }
+  const typedRows=(page,rows)=>sheet(page,rows.flat().map(value=>typeof value==='string'?{ar:value,reading:splitWrittenLetters(value)}:value),Math.max(...rows.map(r=>r.length)),rows.map(r=>r.length));
+  const exercise20=typedRows(20,[
+    ['اَنْتَ','اَهْلِ','بَعْدُ','بَطْشَ','سَعْيَ'],
+    ['كُنْتَ','لَسْتَ','اَمْرٍ','بَرْدًا','جَمْعًا']
+  ]);
+  const exercise21=typedRows(21,[
+    ['حَبْلٌ','خُسْرٍ','خَلْقًا','سَبْحًا','سَبْقًا'],
+    ['شَأْنٌ','صُبْحًا','ضَبْحًا','عَبْدًا'],
+    ['عَدْنٍ','عَشْرٍ','عَصْفٍ','غَرْقًا','غَلْبًا'],
+    ['فَصْلٌ','قَدْحًا','نَقْبًا','كَأْسًا','كَدْحًا'],
+    ['لَغْوًا','مِسْكٌ','عُذْلًا','نَشْطًا','نَفْسٌ'],
+    ['نَقْعًا','يَسْرًا','اَبْقٰى','تَرْضٰى','تَنْسٰى'],
+    ['يَخْشٰى','يَسْعٰى','يَتْلُوْا','يَدْعُوْا','اَلْجَرْيِ'],
+    ['يَهْدِي','يَغْنِي','اَنْتَ','اَمْهِلْ','اِقْرَأْ'],
+    ['فَارْغَبْ','فَانْصَبْ','وَانْحَرْ','اَخْرِجْ'],
+    ['اَرْسَلَ','اَغْطَشَ','اَفْلَحَ','اَكْرَمَ']
+  ]);
+  const exercise22=typedRows(22,[
+    ['اَلْحَمْ','اَنْشَرَ','اَنْقَضَ','دَمْدَمَ'],
+    ['عَسْعَسَ','اَعْبُدُ','نَعْبُدُ','يَعْرُجُ'],
+    ['يَحْسَبُ','شَرِبَ','شَهِدَ','تَرْهَقُ'],
+    ['تَعْرِفُ','اَقْسِمُ','يُبْدِي','يُنْفَخُ'],
+    ['يَنْقَلِبُ','يُوَسْوِسُ','نُقِلَتْ','حُشِرَتْ'],
+    ['سُطِحَتْ','كُشِطَتْ','نُشِرَتْ'],
+    ['نُصِبَتْ','اَثَرْنَ','وَسَطْنَ','فَرَغْتَ'],
+    ['تَأْتُوْنَ','يَسْقُوْنَ','يَفْعَلُوْنَ'],
+    ['يَعْمَلُوْنَ','يَعْلَمُوْنَ','يَضْحَكُوْنَ'],
+    ['يَكْسِبُونَ','يَدْخُلُوْنَ','يَنْظُرُوْنَ']
+  ]);
+  const exercise23=typedRows(23,[
+    ['تَعْبُدُوْنَ','اَنْعَمْتَ','اَنْذَرْنَا','اَنْزَلْنَا'],
+    ['خَلَقْنَا','رَفَعْنَا','وَضَعْنَا','نُطْفَةٍ'],
+    ['عِبْرَةٌ','عَجْرَةٌ','تَذْكِرَةٌ','مُسْفِرَةٌ'],
+    ['مُوْصَدَةٌ ۝','مَسْغَبَةٍ','مَقْرَبَةٍ'],
+    ['مَتْرَبَةٍ','تَضْلِيْلٍ','تَقْوِيْمٍ','تَكْذِيْبِ'],
+    ['تَسْنِيْمٍ ۝','مِسْكِيْنًا','مَمْنُونٍ'],
+    ['مَحْفُوْظٌ','مَخْتُوْمٍ','مَسْرُوْرًا ۝'],
+    ['مَشْهُوْدٍ','اَبْوَابًا','مَصْفُوْفَةٍ','اَزْوَاجًا'],
+    ['اَشْتَاتًا','اَطْعَمَ','اَعْنَابًا','اَفْوَاجًا'],
+    ['اَلْهٰنَا ۝','قُرْاٰنٌ','اَلْحَمْدُ','وَالْفَجْرِ']
+  ]);
+  const exercise24=typedRows(24,[
+    ['وَالْفَتْحُ وَالْعَصْرِ مِنَ الْمُعْصِرٰتِ'],
+    ['مَعَ الْعُسْرِ مَا الْقَارِعَةُ ۝ وَاِذَا'],
+    ['الْمَوْعُوْدَةُ يَنْظُرُ الْمَرْءُ كَالْفَرَاشِ'],
+    ['الْمَبْثُوْثِ كَالْعِهْنِ الْمَنْفُوْشِ ۝'],
+    ['لَيْلَةُ الْقَدْرِ اُخْرِجَتِ الْاَرْضُ'],
+    ['مِنْ اَهْلِ الْكِتٰبِ عِنْدَ ذِي'],
+    ['الْعَرْشِ يَمْنَعُوْنَ الْمَاعُوْنَ ۝ وَهُوَ'],
+    ['الْغَفُوْرُ الْوَدُوْدُ ذُو الْعَرْشِ الْمَجِيْدُ'],
+    ['لَقَدْ خَلَقْنَا الْاِنْسَانَ فِيْ اَحْسَنِ'],
+    ['تَقْوِيْمٍ ۝ اَعْطَيْنٰكَ الْكَوْثَرَ ۝','اَلْعَنْ']
+  ]);
+  function doubledDrills(letter){
+    const initial=['َ','ِ','ُ'],ending=['َ','ِ','ُ','ً','ٍ','ٌ'];
+    // Workbook order: all three initial vowels per short ending, then tanween per initial vowel.
+    const entries=[];
+    for(const vowel of ending.slice(0,3))for(const first of initial)entries.push('ا'+first+letter+'ّ'+vowel);
+    for(const first of initial)for(const vowel of ending.slice(3))entries.push('ا'+first+letter+'ّ'+vowel+(vowel==='ً'?'ا':''));
+    return entries.map(ar=>({ar,reading:splitWrittenLetters(ar)}));
+  }
+  const doubled=[...doubledDrills('ب'),...doubledDrills('ت'),...doubledDrills('ث'),...doubledDrills('ج').slice(0,15)];
+  const tashdeed25=sheet(25,doubled.slice(0,35),5);
+  const tashdeed26=sheet(26,doubled.slice(35),5,[5,5,5,5,5,5,4]);
+  const tashdeedOpening=typedRows(26,[['بِرًّا','حُصِّلَ','صَدَّقَ','عَدَّ','قَدَّرَ']]);
+  const tashdeed27=typedRows(27,[
+    ['كُذِّبَ','ثُمَّ','يَظُنُّ','يَحُضُّ','جَنَّةٍ'],
+    ['ذَرَّةٍ','قُوَّةٍ','كَرَّةٍ','سُعِّرَتْ','قُدِّمَتْ'],
+    ['كُذِّبَتْ','زُوِّجَتْ','سُيِّرَتْ','فُجِّرَتْ'],
+    ['سُيِّرَتْ','عُطِّلَتْ','كُوِّرَتْ','نَظَّامٌ'],
+    ['تُحَدِّثُ','نُيَسِّرُ','هُمْ','اَلْبَيِّنَةُ'],
+    ['قَيِّمَةٌ','عَشِيَّةً','مُنَكَّرٌ','اَيَّانَ'],
+    ['اِيَّاكَ','لِلّٰهِ','تَجَلّٰى','تَصَدّٰى','تَرَدّٰى'],
+    ['تَوَلّٰى','تَوَّابًا ۝','ثَجَّاجًا','غَسَّاقًا'],
+    ['فَعَّالٌ','كَذَّابًا','وَهَّاجًا','مُمَدَّدَةٍ ۝'],
+    ['مُكَرَّمَةٍ','مُطَهَّرَةٍ','وَالسَّمَآءِ']
+  ]);
+  const tashdeed28=typedRows(28,[
+    ['وَالتُّرَابِ','وَالنَّشِطٰتِ','وَالنّٰزِعٰتِ'],
+    ['وَالسَّبِحٰتِ','فَالسّٰبِقٰتِ','فَالْمُدَبِّرٰتِ'],
+    ['تَبْلٰى','السَّرَآئِرُ','فَهَلِ','الْكٰفِرِيْنَ'],
+    ['بِالْخُنَّسِ','الْجَوَارِ','الْكُنَّسِ ۝','اِهْدِنَا'],
+    ['الصِّرَاطَ','الْمُسْتَقِيْمَ ۝']
+  ]);
   const lessons=[
     {n:9,title:'Combined Reading Exercise',source:10,
       instructions:{text:'Practise the standing vowels, madd, leen and tanween in these workbook words. Read from right to left and preserve every written mark. When hamzah follows a madd letter in the same word, the rule is madd muttaṣil; when it begins the next word, madd munfaṣil. A following original sukūn can give madd lāzim; a sukūn caused by stopping can give madd ʿāriḍ. These lengths depend on the recitation rule and reading tradition: confirm the counts with your teacher rather than measuring fixed seconds.'},
@@ -1253,7 +1345,17 @@
     {n:10,title:'Sukoon & Jazm',source:11,
       instructions:{text:'Memorise the name and shape of jazm/sukūn (ْ). A letter carrying sukūn is called sākin. It has no vowel of its own: connect it to the vowelled letter before it and pronounce it once, without adding a, i or u. Practise distinguishing similar sounds: ث / س / ص and ذ / ز / ظ.'},
       sheets:[sheet(19,closed.slice(0,30),5),sheet(20,closed.slice(30),5)],
-      entries:closed}
+      entries:closed},
+    {n:11,title:'Sukoon Exercise',source:12,breakdown:true,
+      instructions:{text:'Read the vowelled letter together with the sākin letter after it; do not add a vowel to the sākin letter. Distinguish the heavy letters ص ض ط ظ غ خ ق. Rā is heavy with fatḥah or ḍammah; the rules for a sākin rā depend on what precedes it. Nūn sākin/tanween before throat letters ء ه ع ح غ خ is clear; ikhfa applies before its specific 15 letters, not every other letter. The workbook introduces stop signs: م (necessary stop), ج (permissible stop), ط (absolute stop), and a verse-end circle. Practise stops with your teacher.'},
+      sheets:[exercise20,exercise21,exercise22,exercise23,exercise24],
+      entries:[exercise20,exercise21,exercise22,exercise23,exercise24].flatMap(p=>p.items).filter(x=>!x.pending)},
+    {n:12,title:'Tashdeed · Doubled Letters',source:13,breakdown:true,
+      instructions:{text:'Tashdeed/shaddah (ّ) marks a doubled consonant. A letter carrying it is called mushaddad. Read it as two consonant positions: the first is sākin and the second carries the written vowel. Join them firmly without inserting an extra vowel or making two detached sounds. In the breakdown, the first position is shown with sukūn and the second with its vowel. Every repeated workbook entry is retained.'},
+      sheets:[tashdeed25,tashdeed26],entries:doubled},
+    {n:13,title:'Tashdeed Exercise',source:14,breakdown:true,
+      instructions:{text:'Apply the doubled-consonant reading in these workbook words and phrases. Mīm and nūn with shaddah (مّ، نّ) require ghunnah—a steady nasal sound for two vowel counts. Do not apply this nasal hold automatically to every other doubled consonant. Read from the right and keep the short vowels, long vowels and stop marks distinct.'},
+      sheets:[tashdeedOpening,tashdeed27,tashdeed28],entries:[tashdeedOpening,tashdeed27,tashdeed28].flatMap(p=>p.items).filter(x=>!x.pending)}
   ];
   const states=new Map(lessons.map(l=>[l.n,{mode:'learn',at:0,quizAt:0,answers:[],show:false}]));
   const get=n=>lessons.find(l=>l.n===Number(n));
@@ -1261,24 +1363,25 @@
   function artwork(r,css=''){
     if(r.text)return '<p class="qw-instructions">'+r.text+'</p>';
     if(r.items){
-      const cell=x=>'<button type="button" class="qw-text-cell" onclick="qwShowReading(\''+x.reading+'\')" aria-label="Show reading of '+x.ar+'"><span class="qw-ar" lang="ar">'+cleanGlyph(x.ar)+'</span></button>';
+      const cell=x=>x.pending?'<div class="qw-review-cell" role="note"><strong>Needs confirmation</strong><p>'+x.pending+'</p></div>':'<button type="button" class="qw-text-cell" onclick="qwShowReading(\''+x.reading+'\')" aria-label="Show reading of '+x.ar+'"><span class="qw-ar" lang="ar">'+cleanGlyph(x.ar)+'</span></button>';
       if(r.rowSizes){let at=0;return r.rowSizes.map(count=>{const row=r.items.slice(at,at+count);at+=count;return '<div class="qw-text-grid" dir="rtl" style="--columns:'+count+';margin:0">'+row.map(cell).join('')+'</div>';}).join('');}
       return '<div class="qw-text-grid" dir="rtl" style="--columns:'+r.columns+'">'+r.items.map(cell).join('')+'</div>';
     }
     return '<div class="qw-ar '+css+'" lang="ar" dir="rtl">'+cleanGlyph(r.ar)+'</div>';
   }
-  window.qwShowReading=reading=>{const dlg=document.getElementById('qn-dialog');document.getElementById('qn-dialog-body').textContent=reading;dlg.showModal();};
+  window.qwShowReading=reading=>{const dlg=document.getElementById('qn-dialog'),body=document.getElementById('qn-dialog-body');body.textContent=reading;body.dir=/[\u0621-\u064A]/.test(reading)?'rtl':'ltr';body.className=body.dir==='rtl'?'arabic-text text-2xl':'';dlg.showModal();};
   function btn(label,action,disabled=false,selected=false){return '<button type="button" class="qw-btn '+(selected?'qw-selected':'')+'" onclick="'+action+'" '+(disabled?'disabled':'')+'>'+label+'</button>';}
-  function options(l,i){const answer=l.entries[i];const alt1=l.entries[(i+1)%l.entries.length],alt2=l.entries[(i+2)%l.entries.length];const opts=[answer,alt1,alt2];const shift=(i+1)%3;return opts.slice(shift).concat(opts.slice(0,shift));}
+  function options(l,i){const answer=l.entries[i],pool=[...new Map(l.entries.filter(x=>x.reading!==answer.reading).map(x=>[x.reading,x])).values()];const opts=[answer,pool[i%pool.length],pool[(i+1)%pool.length]];const shift=(i+1)%3;return opts.slice(shift).concat(opts.slice(0,shift));}
   function render(n){const l=get(n),s=states.get(l.n);let body='';
-    if(s.mode==='learn')body='<section class="qw-panel"><h3>Workbook instructions</h3>'+artwork(l.instructions)+'</section>'+l.sheets.map(r=>'<section class="qw-panel"><h3>'+r.label+'</h3>'+artwork(r)+'</section>').join('');
+    if(s.mode==='learn')body='<section class="qw-panel"><h3>Workbook instructions</h3>'+artwork(l.instructions)+'</section>'+(l.sheets.some(p=>p.items.some(x=>x.pending))?'<div class="qw-panel" role="note">A few small-print entries are awaiting confirmation. Their places are retained; unconfirmed text is excluded from practice and quizzes.</div>':'')+l.sheets.map(r=>'<section class="qw-panel"><h3>'+r.label+'</h3>'+artwork(r)+'</section>').join('');
     if(s.mode==='practice')body='<section class="qw-panel"><h3>Reading practice · '+(s.at+1)+' / '+l.entries.length+'</h3><p>Read the Arabic text, then reveal the model reading.</p>'+artwork(l.entries[s.at],'qw-prompt')+btn(s.show?'Hide reading':'Reveal reading','qwContext('+n+')')+(s.show?'<p class="qw-model">'+l.entries[s.at].reading+'</p>':'')+'<div class="qw-actions">'+btn('Previous','qwPracticeStep('+n+',-1)',s.at===0)+btn('Next','qwPracticeStep('+n+',1)',s.at===l.entries.length-1)+'</div></section>';
     if(s.mode==='quiz'){
       const total=12;
       if(s.quizAt===total){const score=s.answers.filter(x=>x===true).length;body='<section class="qw-panel"><h3>Reading quiz · '+score+' / '+total+'</h3><p>Review the model readings and practise the words you missed.</p>'+btn('Previous question','qwQuizStep('+n+',-1)')+btn('Restart quiz','qwRestart('+n+')')+'</section>';}
       else {const index=Math.floor(s.quizAt*l.entries.length/total),opts=options(l,index),saved=s.answers[s.quizAt];body='<section class="qw-panel"><h3>Reading quiz · '+(s.quizAt+1)+' / '+total+'</h3><p>Choose the correct reading. Check every letter and vowel mark.</p>'+artwork(l.entries[index],'qw-prompt')+'<div class="qw-options">'+opts.map((r,i)=>'<button type="button" class="qw-btn" onclick="qwAnswer('+n+','+i+')" aria-label="Choice '+(i+1)+'">'+r.reading+'</button>').join('')+'</div><p class="qw-feedback" aria-live="polite">'+(saved===undefined?'Choose an answer.':saved?'Correct reading.':'Review the vowels and try another reading.')+'</p><div class="qw-actions">'+btn('Previous','qwQuizStep('+n+',-1)',s.quizAt===0)+btn(s.quizAt===total-1?'Finish':'Next','qwQuizStep('+n+',1)',saved===undefined)+'</div></section>';}
     }
-    document.getElementById('foundation-'+n).innerHTML='<header class="qw-header"><p>Arabic Foundations · Lesson '+n+' · Workbook Lesson '+l.source+'</p><h2>'+l.title+'</h2><p>Workbook text · '+l.entries.length+' reading entries</p></header><nav class="qw-actions" aria-label="Lesson sections">'+['learn','practice','quiz'].map(m=>btn({learn:'Learn',practice:'Reading Practice',quiz:'Reading Quiz'}[m],"qwMode("+n+",'"+m+"')",false,s.mode===m)).join('')+'</nav>'+body+'<nav class="qw-actions">'+btn('Previous lesson','openWorkbookLesson('+(n-1)+')')+(n===9?btn('Next: Sukoon & Jazm','openWorkbookLesson(10)'):'')+'</nav>';
+    document.getElementById('foundation-'+n).innerHTML='<header class="qw-header"><p>Arabic Foundations · Lesson '+n+' · Workbook Lesson '+l.source+'</p><h2>'+l.title+'</h2><p>Workbook text · '+l.entries.length+' reading entries'+(l.breakdown?' · Arabic letter breakdown':'')+'</p></header><nav class="qw-actions" aria-label="Lesson sections">'+['learn','practice','quiz'].map(m=>btn({learn:'Learn',practice:'Reading Practice',quiz:'Reading Quiz'}[m],"qwMode("+n+",'"+m+"')",false,s.mode===m)).join('')+'</nav>'+body+'<nav class="qw-actions">'+btn('Previous lesson','openWorkbookLesson('+(n-1)+')')+(get(n+1)?btn('Next: '+get(n+1).title,'openWorkbookLesson('+(n+1)+')'):'')+'</nav>';
+    if(l.breakdown){const host=document.getElementById('foundation-'+n);host.innerHTML=host.innerHTML.replaceAll('Read the Arabic text, then reveal the model reading.','Read the word, then check its written-letter breakdown. A doubled letter is expanded into sākin + vowelled positions.').replaceAll('Reveal reading','Reveal breakdown').replaceAll('Hide reading','Hide breakdown').replaceAll('Choose the correct reading. Check every letter and vowel mark.','Choose the matching written-letter breakdown. Check the letters, marks and doubled consonants.');}
   }
   window.qwMode=(n,m)=>{states.get(n).mode=m;render(n);};
   window.qwContext=n=>{states.get(n).show=!states.get(n).show;render(n);};
@@ -1289,7 +1392,9 @@
   const oldOpen=window.openWorkbookLesson;
   window.openWorkbookLesson=n=>{if(!get(n)){oldOpen(n);if(Number(n)===8){const link=document.createElement('div');link.innerHTML=btn('Next: Combined Reading Exercise','openWorkbookLesson(9)');document.getElementById('foundation-8').append(link);}return;}openCourseMenu('foundations');render(Number(n));switchTab('foundation-'+n);document.getElementById('mobile-menu').classList.add('hidden');};
   function mount(){const style=document.createElement('style');style.textContent='.qw-text-grid{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));direction:rtl!important;gap:1px;background:#cbd5e1;margin:16px 0}.qw-text-cell{background:#fffef7;padding:16px 3px;min-height:104px;color:#075985;text-align:center}.qw-ar{font-family:Amiri,\"Scheherazade New\",serif;font-size:clamp(28px,4vw,46px);line-height:2.1;direction:rtl;unicode-bidi:isolate}.qw-text-cell:focus-visible{outline:3px solid #f59e0b}.qw-model{font-size:24px;text-align:center;font-weight:700;margin:20px}.qw-instructions{line-height:1.9}.qw-prompt{margin:20px auto;text-align:center;font-size:60px}.qw-header{color:#e0f2fe;margin-bottom:24px}.qw-header h2{font-size:36px;font-weight:800;color:white}.qw-header p:first-child{color:#f59e0b;font-size:13px;font-weight:700}.qw-header p:last-child{font-size:13px}.qw-panel{background:white;border:1px solid #e2e8f0;border-radius:20px;padding:20px;margin:20px 0}.qw-panel h3{font-size:20px;font-weight:700;margin-bottom:16px}.qw-art{display:block;width:100%;height:auto;max-width:640px;margin:16px auto}.qw-prompt{width:180px;max-height:200px}.qw-btn{background:white;border:1px solid #cbd5e1;border-radius:12px;padding:12px;min-height:44px;font-weight:600}.qw-btn:disabled{opacity:.4}.qw-btn:focus-visible{outline:3px solid #f59e0b}.qw-selected{background:#0369a1;color:white}.qw-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;margin:20px 0}.qw-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;direction:rtl}.qw-options .qw-art{max-width:130px}.qw-feedback{min-height:48px;margin-top:20px}';document.head.append(style);
+    style.textContent+='.qw-prompt{width:100%;max-height:none;overflow-wrap:anywhere}.qw-model{font-family:Amiri,"Scheherazade New",serif;direction:rtl;unicode-bidi:plaintext;line-height:1.9}.qw-model:not(:has(*)){unicode-bidi:plaintext}.qw-review-cell{background:#fffbeb;color:#92400e;padding:14px;font-size:12px;min-height:100px;text-align:center}.qw-review-cell p{font-size:11px}.qw-options .qw-btn{unicode-bidi:plaintext;overflow-wrap:anywhere;line-height:1.9}';
     for(const l of lessons){const section=document.createElement('section');section.id='foundation-'+l.n;section.className='tab-content';document.getElementById('foundation-'+(l.n-1)).after(section);for(const suffix of ['','-m']){const b=document.createElement('button');b.className='w-full text-left p-3 text-slate-300 hover:bg-brand-900 rounded-xl';b.textContent=String(l.n).padStart(2,'0')+' · '+l.title;b.onclick=()=>openWorkbookLesson(l.n);document.getElementById('qaida-menu'+suffix).append(b);}render(l.n);}
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();
+
